@@ -110,30 +110,57 @@ echo "Current configuration:"
 swiftopenai config list
 
 echo ""
-echo -e "${YELLOW}💡 Note: Make sure your API key is set for $PROVIDER_NAME${NC}"
+
+# Check if API key is set
+API_KEY_SET=false
+CONFIG_API_KEY=$(swiftopenai config get api-key 2>/dev/null || echo "")
+API_KEY_SOURCE=""
+
+# Check provider-specific environment variable
 case "$PROVIDER_NAME" in
   openai)
-    echo "   Environment variable: OPENAI_API_KEY"
-    echo "   Or: swiftopenai config set api-key <your-key>"
+    ENV_VAR="OPENAI_API_KEY"
     ;;
   grok)
-    echo "   Environment variable: XAI_API_KEY"
-    echo "   Or: swiftopenai config set api-key <your-xai-key>"
+    ENV_VAR="XAI_API_KEY"
     ;;
   groq)
-    echo "   Environment variable: GROQ_API_KEY"
-    echo "   Or: swiftopenai config set api-key <your-groq-key>"
+    ENV_VAR="GROQ_API_KEY"
     ;;
   deepseek)
-    echo "   Environment variable: DEEPSEEK_API_KEY"
-    echo "   Or: swiftopenai config set api-key <your-deepseek-key>"
+    ENV_VAR="DEEPSEEK_API_KEY"
     ;;
   openrouter)
-    echo "   Environment variable: OPENROUTER_API_KEY"
-    echo "   Or: swiftopenai config set api-key <your-openrouter-key>"
+    ENV_VAR="OPENROUTER_API_KEY"
     ;;
 esac
 
-echo ""
-echo -e "${GREEN}🚀 Ready to use! Test with:${NC}"
-echo "   swiftopenai \"Hello, world!\""
+# Check if API key is available (either in config or provider-specific env var)
+if [ -n "$CONFIG_API_KEY" ] && [ "$CONFIG_API_KEY" != "not set" ] && [ "$CONFIG_API_KEY" != "****" ]; then
+  API_KEY_SET=true
+  API_KEY_SOURCE="config file"
+elif [ -n "${!ENV_VAR}" ]; then
+  API_KEY_SET=true
+  API_KEY_SOURCE="environment variable $ENV_VAR"
+fi
+
+if [ "$API_KEY_SET" = true ]; then
+  echo -e "${GREEN}✅ API key is configured ($API_KEY_SOURCE)${NC}"
+  echo ""
+  echo -e "${GREEN}🚀 Ready to use! Test with:${NC}"
+  echo "   swiftopenai agent \"Hello, world!\""
+else
+  echo -e "${RED}⚠️  API KEY NOT SET${NC}"
+  echo ""
+  echo "You need to set an API key for $PROVIDER_NAME before using the CLI."
+  echo ""
+  echo "Option 1 - Set via environment variable:"
+  echo "   export $ENV_VAR=<your-api-key>"
+  echo ""
+  echo "Option 2 - Set via config (persists):"
+  echo "   swiftopenai config set api-key <your-api-key>"
+  echo ""
+  echo -e "${YELLOW}After setting the API key, you can test with:${NC}"
+  echo "   swiftopenai agent \"Hello, world!\""
+  exit 1
+fi

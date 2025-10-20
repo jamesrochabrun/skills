@@ -66,25 +66,34 @@ The script automatically:
 
 ### Step 3: Verify API Key
 
-After configuration, verify the user has the appropriate API key set. The configuration script will display which environment variable or config setting is needed.
+The configuration script automatically checks if an API key is set and will **stop with clear instructions** if no API key is found.
 
-**Common API key checks:**
+**If API key is missing:**
 
-- **OpenAI:** `OPENAI_API_KEY` environment variable or `swiftopenai config get api-key`
-- **Grok:** `XAI_API_KEY` environment variable
-- **Groq:** `GROQ_API_KEY` environment variable
-- **DeepSeek:** `DEEPSEEK_API_KEY` environment variable
-- **OpenRouter:** `OPENROUTER_API_KEY` environment variable
+The script exits with error code 1 and displays:
+- ⚠️ Warning that API key is not set
+- Instructions for setting via environment variable
+- Instructions for setting via config (persistent)
 
-If the API key needs to be set:
+**Do not proceed to Step 4 if the configuration script fails due to missing API key.**
 
+Instead, inform the user they need to set their API key first:
+
+**Option 1 - Environment variable (session only):**
 ```bash
-# Via config (persists)
-swiftopenai config set api-key <api-key-value>
-
-# Via environment variable (session only)
-export XAI_API_KEY=xai-...
+export XAI_API_KEY=xai-...           # for Grok
+export GROQ_API_KEY=gsk_...          # for Groq
+export DEEPSEEK_API_KEY=sk-...       # for DeepSeek
+export OPENROUTER_API_KEY=sk-or-...  # for OpenRouter
+export OPENAI_API_KEY=sk-...         # for OpenAI
 ```
+
+**Option 2 - Config file (persistent):**
+```bash
+swiftopenai config set api-key <api-key-value>
+```
+
+After the user sets their API key, re-run the configuration script to verify.
 
 ### Step 4: Execute the Agentic Task
 

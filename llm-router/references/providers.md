@@ -217,13 +217,63 @@ swiftopenai chat "Write a poem" --temperature 1.5
 swiftopenai config set max-tokens 2000
 ```
 
-## Environment Variables Priority
+## Managing Multiple Provider API Keys
 
-Provider-specific environment variables take precedence over config file:
+### Best Practice: Use Provider-Specific Environment Variables
 
-1. Provider-specific env var (e.g., `XAI_API_KEY`)
-2. Config file api-key setting
-3. Generic `OPENAI_API_KEY` fallback
+To seamlessly use multiple providers without constantly reconfiguring API keys, set all provider keys as environment variables in your shell profile.
+
+**Add to `~/.zshrc` or `~/.bashrc`:**
+
+```bash
+# API Keys for LLM Providers
+export OPENAI_API_KEY=sk-...
+export XAI_API_KEY=xai-...
+export GROQ_API_KEY=gsk_...
+export DEEPSEEK_API_KEY=sk-...
+export OPENROUTER_API_KEY=sk-or-v1-...
+```
+
+**Benefits:**
+- ✅ All keys available at once
+- ✅ Automatic key selection based on provider
+- ✅ No need to reconfigure when switching providers
+- ✅ Keys persist across terminal sessions
+- ✅ More secure than storing in config file
+
+**After adding, reload your shell:**
+```bash
+source ~/.zshrc  # or source ~/.bashrc
+```
+
+### How SwiftOpenAI-CLI Selects API Keys
+
+When you configure a provider, SwiftOpenAI-CLI uses this priority:
+
+1. **Provider-specific environment variable** (e.g., `XAI_API_KEY` for Grok)
+2. Config file `api-key` setting (if set)
+3. Generic `OPENAI_API_KEY` fallback (for OpenAI provider only)
+
+**Example Flow:**
+```bash
+# Configure for Grok
+swiftopenai config set provider xai
+
+# CLI automatically uses XAI_API_KEY environment variable
+swiftopenai agent "Hello, world!"
+
+# Switch to OpenAI
+swiftopenai config set provider ""
+
+# CLI automatically uses OPENAI_API_KEY environment variable
+swiftopenai agent "Hello, world!"
+```
+
+### Config File Limitation
+
+The config file (`~/.swiftopenai/config.json`) only stores **ONE** api-key value. If you use `swiftopenai config set api-key <key>`, it will be used for **all providers** (unless overridden by a provider-specific env var).
+
+This is why environment variables are recommended for multiple providers.
 
 ## Debug Mode
 

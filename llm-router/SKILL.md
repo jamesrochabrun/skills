@@ -257,6 +257,43 @@ Provides access to 300+ models:
 
 ## API Key Management
 
+### Recommended: Use Environment Variables for Multiple Providers
+
+The **best practice** for using multiple providers is to set all API keys as environment variables. This allows seamless switching between providers without reconfiguring keys.
+
+**Add to your shell profile** (`~/.zshrc` or `~/.bashrc`):
+
+```bash
+# API Keys for LLM Providers
+export OPENAI_API_KEY=sk-...
+export XAI_API_KEY=xai-...
+export GROQ_API_KEY=gsk_...
+export DEEPSEEK_API_KEY=sk-...
+export OPENROUTER_API_KEY=sk-or-v1-...
+```
+
+After adding these, reload your shell:
+
+```bash
+source ~/.zshrc  # or source ~/.bashrc
+```
+
+**How it works:**
+- SwiftOpenAI-CLI automatically uses the **correct provider-specific key** based on the configured provider
+- When you switch to Grok, it uses `XAI_API_KEY`
+- When you switch to OpenAI, it uses `OPENAI_API_KEY`
+- No need to reconfigure keys each time
+
+### Alternative: Single API Key via Config (Not Recommended for Multiple Providers)
+
+If you only use **one provider**, you can store the key in the config file:
+
+```bash
+swiftopenai config set api-key <your-key>
+```
+
+**Limitation:** The config file only stores ONE api-key. If you switch providers, you'd need to reconfigure the key each time.
+
 ### Checking Current API Key
 
 ```bash
@@ -265,33 +302,6 @@ swiftopenai config list
 
 # Get specific API key setting
 swiftopenai config get api-key
-```
-
-### Setting API Keys
-
-**Via configuration file (persistent):**
-
-```bash
-swiftopenai config set api-key <your-key>
-```
-
-**Via environment variables (session-based):**
-
-```bash
-# OpenAI
-export OPENAI_API_KEY=sk-...
-
-# Grok
-export XAI_API_KEY=xai-...
-
-# Groq
-export GROQ_API_KEY=gsk_...
-
-# DeepSeek
-export DEEPSEEK_API_KEY=sk-...
-
-# OpenRouter
-export OPENROUTER_API_KEY=sk-or-v1-...
 ```
 
 **Priority:** Provider-specific environment variables take precedence over config file settings.

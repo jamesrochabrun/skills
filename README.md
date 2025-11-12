@@ -4,7 +4,9 @@ A collection of custom skills for Claude Code.
 
 ## Skills
 
-### llm-router
+### Engineering Skills
+
+#### llm-router
 
 Route AI requests to different LLM providers using SwiftOpenAI-CLI.
 
@@ -21,6 +23,37 @@ Route AI requests to different LLM providers using SwiftOpenAI-CLI.
 - "Use groq for fast code generation"
 
 [View llm-router skill →](./llm-router)
+
+---
+
+### Product Management Skills
+
+#### prd-generator
+
+Generate comprehensive Product Requirements Documents (PRDs) for product managers.
+
+**Key features:**
+- Interactive PRD generation workflow
+- Standard PRD templates (full, lean, one-pager)
+- User story creation with acceptance criteria
+- Success metrics frameworks (AARRR, HEART, North Star, OKRs)
+- PRD validation and completeness checking
+- Comprehensive reference materials
+
+**Usage:**
+- "Create a PRD for user authentication"
+- "Generate a lean PRD for dark mode feature"
+- "Write requirements for a new dashboard"
+- "Help me create user stories for checkout flow"
+
+**Includes:**
+- Complete PRD template with all standard sections
+- User story examples and best practices
+- Metrics frameworks guide (AARRR, HEART, OKRs)
+- Interactive generation script
+- Validation script for quality checking
+
+[View prd-generator skill →](./prd-generator)
 
 ## Installation
 

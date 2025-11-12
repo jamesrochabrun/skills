@@ -90,6 +90,47 @@ Generate comprehensive Product Requirements Documents (PRDs) for product manager
 
 [View prd-generator skill →](./prd-generator)
 
+---
+
+### Product Marketing Skills
+
+#### technical-launch-planner
+
+Plan and execute technical product launches for developer tools, APIs, and technical products.
+
+**Key features:**
+- Launch tier assessment (Tier 1/2/3 framework)
+- Interactive launch plan generation
+- Developer enablement checklists
+- Technical messaging templates
+- Launch readiness validation
+- Post-launch tracking
+
+**Usage:**
+- "Plan a launch for our new API"
+- "Determine the launch tier for this feature"
+- "Create a developer enablement checklist"
+- "Generate technical launch messaging"
+- "Validate launch readiness"
+
+**Includes:**
+- `assess_launch_tier.sh` - Determine appropriate launch tier
+- `generate_launch_plan.sh` - Create comprehensive launch plan
+- `validate_readiness.sh` - Pre-launch readiness checker
+- Developer enablement complete checklist
+- Technical messaging frameworks and templates
+- Launch tier frameworks (GA, Beta, Preview)
+
+**Perfect for:**
+- Developer tools and platforms
+- API and SDK launches
+- Technical infrastructure products
+- B2D (Business-to-Developer) products
+
+[View technical-launch-planner skill →](./technical-launch-planner)
+
+---
+
 ## Installation
 
 ### Install All Skills

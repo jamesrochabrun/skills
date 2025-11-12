@@ -6,6 +6,41 @@ A collection of custom skills for Claude Code.
 
 ### Engineering Skills
 
+#### git-worktrees
+
+Manage Git worktrees for parallel Claude Code development. Run multiple Claude Code sessions simultaneously on different branches without conflicts.
+
+**Key features:**
+- Super simple scripts for worktree management
+- Interactive worktree creation and cleanup
+- Automatic sync with main branch
+- Best practices and command reference
+- Custom slash command template
+
+**Usage:**
+- "Create a worktree for feature-api"
+- "List all active worktrees"
+- "Clean up old worktrees"
+- "Sync worktree with main branch"
+
+**Includes:**
+- `create_worktree.sh` - Interactive worktree creation
+- `list_worktrees.sh` - View all active worktrees
+- `cleanup_worktrees.sh` - Remove old worktrees safely
+- `sync_worktree.sh` - Keep worktrees up-to-date
+- Complete command reference and best practices
+- Custom `/worktree` slash command template
+
+**Perfect for:**
+- Parallel AI development with multiple Claude sessions
+- Hotfixes during feature development
+- Code review without context switching
+- Experimentation without breaking main work
+
+[View git-worktrees skill →](./git-worktrees)
+
+---
+
 #### llm-router
 
 Route AI requests to different LLM providers using SwiftOpenAI-CLI.

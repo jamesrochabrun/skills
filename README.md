@@ -61,6 +61,67 @@ Route AI requests to different LLM providers using SwiftOpenAI-CLI.
 
 ---
 
+#### engineer-expertise-extractor
+
+**🔥 Extract and replicate engineering expertise from GitHub contributions.** Research any engineer's coding style, patterns, and best practices to create a structured knowledge base that AI agents can use to code like them.
+
+**Key features:**
+- GitHub CLI integration for PR analysis
+- Automated expertise extraction from code
+- Structured knowledge organization by topic
+- Coding style documentation (naming, formatting, structure)
+- Pattern identification and cataloging
+- Best practices extraction
+- Architectural decision documentation
+- Code review style analysis
+
+**Usage:**
+- "Extract expertise from engineer @username"
+- "Research coding patterns from their PRs"
+- "Document their architectural decisions"
+- "Analyze their code review style"
+- "Create agent training profile"
+
+**Includes:**
+- `extract_engineer.sh` - Full extraction workflow with GitHub CLI
+- Organized folder structure (coding_style/, patterns/, best_practices/, architecture/)
+- Template documentation files
+- PR analysis and pattern recognition
+- Profile README generation
+
+**Output Structure:**
+```
+engineer_profiles/
+└── [username]/
+    ├── README.md (profile overview)
+    ├── coding_style/ (conventions & preferences)
+    ├── patterns/ (common solutions & approaches)
+    ├── best_practices/ (quality standards)
+    ├── architecture/ (design decisions)
+    ├── code_review/ (feedback patterns)
+    └── examples/ (real code samples)
+```
+
+**Perfect for:**
+- Creating "digital mentors" from senior engineers
+- Training AI agents to code in specific styles
+- Onboarding new engineers with real examples
+- Preserving knowledge before engineers leave
+- Establishing team coding standards
+- Code review training materials
+
+**Use Cases:**
+- **AI Agent Training:** "Using engineer_profiles/senior_dev/, write code matching their style"
+- **Knowledge Transfer:** Extract expertise before engineer leaves
+- **Team Standards:** Create evidence-based coding guidelines
+- **Onboarding:** Provide real examples from top engineers
+
+**Requirements:** GitHub CLI (`gh`) installed and authenticated
+
+[View engineer-expertise-extractor skill →](./engineer-expertise-extractor)
+
+---
+
 ### Product Management Skills
 
 #### prd-generator

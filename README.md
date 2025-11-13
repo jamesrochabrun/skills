@@ -131,6 +131,46 @@ Plan and execute technical product launches for developer tools, APIs, and techn
 
 ---
 
+### Design Skills
+
+#### design-brief-generator
+
+Generate comprehensive design briefs for design projects, ensuring alignment and clarity before design work begins.
+
+**Key features:**
+- Interactive design brief generation
+- Complete design brief template with all sections
+- Accessibility guidelines (WCAG 2.1)
+- Design principles framework
+- User research methods guide
+- Brief validation and completeness checking
+
+**Usage:**
+- "Create a design brief for mobile app redesign"
+- "Generate a brief for new feature design"
+- "Help me document design requirements"
+- "Validate my design brief for completeness"
+- "What accessibility requirements should I include?"
+
+**Includes:**
+- `generate_brief.sh` - Interactive brief generation
+- `validate_brief.sh` - Brief completeness validation
+- Complete design brief template
+- WCAG 2.1 accessibility guidelines
+- Design principles creation guide
+- User research methods reference
+
+**Perfect for:**
+- UX/UI designers planning projects
+- Design system work
+- Feature design projects
+- Redesign initiatives
+- Stakeholder alignment
+
+[View design-brief-generator skill →](./design-brief-generator)
+
+---
+
 ## Installation
 
 ### Install All Skills

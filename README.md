@@ -171,6 +171,46 @@ Generate comprehensive design briefs for design projects, ensuring alignment and
 
 ---
 
+### Content & Writing Skills
+
+#### content-brief-generator
+
+Generate comprehensive content briefs for writers, ensuring strategic, SEO-optimized content across all formats.
+
+**Key features:**
+- Interactive content brief generation
+- SEO strategy and keyword research framework
+- Content structure frameworks (AIDA, PAS, How-To, etc.)
+- Tone and voice development guide
+- Brief validation and completeness checking
+- Templates for blog posts, documentation, landing pages, and more
+
+**Usage:**
+- "Create a blog post brief for JWT authentication"
+- "Generate a landing page brief"
+- "Help me write a technical documentation brief"
+- "What SEO keywords should I target?"
+- "Validate my content brief"
+
+**Includes:**
+- `generate_brief.sh` - Interactive brief generation
+- `validate_brief.sh` - Brief completeness validation
+- Complete SEO guidelines and best practices
+- Content structure frameworks (AIDA, PAS, storytelling, etc.)
+- Tone and voice development guide
+- Copywriting formulas and templates
+
+**Perfect for:**
+- Content writers and marketers
+- Technical writers
+- Copywriters
+- Content strategists
+- SEO specialists
+
+[View content-brief-generator skill →](./content-brief-generator)
+
+---
+
 ## Installation
 
 ### Install All Skills

@@ -211,6 +211,49 @@ Generate comprehensive content briefs for writers, ensuring strategic, SEO-optim
 
 ---
 
+### Trading & Finance Skills
+
+#### trading-plan-generator
+
+Generate comprehensive trading plans with risk management, position sizing, and discipline frameworks for consistent, profitable trading.
+
+**Key features:**
+- Interactive trading plan generation
+- Risk management frameworks (1% rule, daily loss limits)
+- Position sizing calculators
+- Entry/exit strategy templates
+- Trading psychology and discipline guide
+- Performance tracking metrics
+- Plan validation and compliance checking
+
+**Usage:**
+- "Create a trading plan for swing trading"
+- "Calculate position size for this trade"
+- "What should my daily loss limit be?"
+- "Help me set up risk management rules"
+- "Validate my trading plan"
+
+**Includes:**
+- `generate_plan.sh` - Interactive plan generation (7 steps)
+- `validate_plan.sh` - Plan completeness validation
+- `position_calculator.sh` - Quick position sizing tool
+- Complete risk management guide (1% rule, R:R, stops)
+- Trading psychology reference (emotions, discipline, tilt)
+- Performance metrics and tracking frameworks
+
+**Perfect for:**
+- Day traders
+- Swing traders
+- Position traders
+- Options traders
+- Anyone serious about trading discipline
+
+**⚠️ Important:** This provides frameworks, not financial advice. Trading involves substantial risk of loss.
+
+[View trading-plan-generator skill →](./trading-plan-generator)
+
+---
+
 ## Installation
 
 ### Install All Skills

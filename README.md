@@ -122,6 +122,83 @@ engineer_profiles/
 
 ---
 
+#### engineer-skill-creator
+
+**Transform extracted expertise into actionable skills with progressive disclosure.** Takes engineer profiles from the extractor and creates structured, queryable skills that AI agents can use to find relevant expertise for specific tasks.
+
+**Key features:**
+- Progressive disclosure system (show only what's needed)
+- Task-based organization (authentication, API design, testing, etc.)
+- Language-specific guidance
+- Pattern library with examples
+- Interactive query tool
+- Quick reference guides
+- Automatic categorization
+
+**Usage:**
+- "Create a skill from engineer profile"
+- "Transform expertise into queryable format"
+- "Generate progressive disclosure navigation"
+- "Package expertise for agent use"
+
+**Workflow:**
+```bash
+# Step 1: Extract expertise
+./extract_engineer.sh senior_dev
+
+# Step 2: Create skill (THIS TOOL)
+./create_expert_skill.sh senior_dev
+
+# Step 3: Use with agents
+"Using expert-skills/senior-dev-mentor/, implement auth"
+```
+
+**Output Structure:**
+```
+expert-skills/[name]-mentor/
+├── SKILL.md (documentation)
+├── query_expertise.sh (interactive query)
+├── expertise/
+│   ├── by_task/ (auth, API, testing, etc.)
+│   ├── by_language/ (TypeScript, Python, etc.)
+│   ├── by_pattern/ (DI, repository, etc.)
+│   └── quick_reference/ (style, naming, etc.)
+└── examples/ (real code samples)
+```
+
+**Progressive Disclosure:**
+Instead of dumping all expertise at once, agents query specific needs:
+- "How do they handle authentication?" → Gets only auth patterns
+- "TypeScript coding style?" → Gets only TS conventions
+- "Repository pattern?" → Gets only that pattern
+
+**Perfect for:**
+- Making expertise searchable and queryable
+- Enabling task-specific guidance
+- Creating AI agent training materials
+- Building onboarding resources
+- Scaling knowledge across teams
+
+**Use with agents:**
+```
+"Using expert-skills/senior-dev-mentor/, write a user service
+following their patterns and style"
+
+"Using expert-skills/tech-lead-mentor/, review this code using
+their standards"
+```
+
+**Requirements:** Completed engineer profile from engineer-expertise-extractor
+
+**The Complete Workflow:**
+1. **Extract:** `engineer-expertise-extractor` → Creates profile
+2. **Create:** `engineer-skill-creator` → Transforms into skill
+3. **Use:** Reference skill in agent prompts → Get expert guidance
+
+[View engineer-skill-creator skill →](./engineer-skill-creator)
+
+---
+
 ### Product Management Skills
 
 #### prd-generator

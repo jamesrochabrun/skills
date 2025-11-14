@@ -792,6 +792,66 @@ Generate comprehensive test plans, manual test cases, regression suites, and bug
 
 ---
 
+#### leetcode-teacher
+
+**🚀 Interactive LeetCode-style teacher for mastering technical interviews.** Generates browser-based coding playgrounds with real product challenges, teaches the 20 essential patterns, supports Python/TypeScript/Kotlin/Swift, and provides progressive difficulty training.
+
+**Key features:**
+- Interactive code editor - browser-based with syntax highlighting
+- Multi-language support - Python, TypeScript, Kotlin, Swift
+- Real product challenges - Instagram, Uber, Netflix, Amazon scenarios
+- Pattern recognition - Master the 20 essential coding patterns
+- Progressive difficulty - Easy → Medium → Hard → Expert
+- Instant feedback - Run tests in real-time with detailed explanations
+- Technique teaching - Learn optimization strategies
+
+**Patterns covered:**
+- **Arrays**: Two Pointers, Sliding Window, Fast & Slow Pointers
+- **Trees & Graphs**: BFS, DFS, Topological Sort
+- **Dynamic Programming**: Knapsack, Fibonacci, LCS
+- **Advanced**: Binary Search, Top K, Backtracking, Union Find, Tries
+
+**Usage:**
+- "Practice two pointers with Instagram example"
+- "Generate sliding window problem for Netflix"
+- "Teach me BFS with LinkedIn connections"
+- "Hard dynamic programming challenge"
+- "Show me all heap patterns"
+
+**Includes:**
+- `generate_playground.sh` - Create interactive coding environments
+- `generate_problem.sh` - Generate specific problem types
+- Complete reference materials (patterns, data_structures)
+- Multi-language code templates
+- Real product scenario examples
+
+**Perfect for:**
+- FAANG interview preparation
+- Coding pattern mastery
+- Algorithm practice
+- Technical interview training
+- Competitive programming
+
+**Example challenges:**
+- 🎯 Two Sum (Instagram Mutual Likes)
+- 📊 Top K Elements (Reddit Top Posts)
+- 🔗 BFS (LinkedIn Degrees of Connection)
+- 📅 Merge Intervals (Google Calendar Slots)
+- 🚗 Shortest Path (Uber Driver Matching)
+
+**Use with Claude:**
+```
+"Using leetcode-teacher, create a two pointers playground for Instagram"
+
+"Generate a BFS problem with LinkedIn connections context"
+
+"Show me sliding window pattern with Netflix recommendations"
+```
+
+[View leetcode-teacher skill →](./leetcode-teacher)
+
+---
+
 ## Installation
 
 ### Install All Skills

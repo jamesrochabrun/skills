@@ -852,6 +852,86 @@ Generate comprehensive test plans, manual test cases, regression suites, and bug
 
 ---
 
+#### technical-doc-writer
+
+**📝 Expert technical writing assistant for creating professional documentation, diagrams, and presentations.** Helps engineers write design docs, RFCs, ADRs, API documentation, post-mortems, and more. Generates Mermaid diagrams and exports to Google Drive, Notion, Quip, and Confluence.
+
+**Key features:**
+- Complete document templates - Design docs, RFCs, ADRs, API docs, runbooks, post-mortems
+- Diagram generation - Architecture, sequence, flowchart, ERD, state, and Gantt charts using Mermaid
+- Presentation builder - Technical slides for design reviews, demos, and RFCs
+- Writing best practices - Industry-standard guidelines and style guides
+- Platform optimization - Formatted for Google Drive, Notion, Quip, Confluence
+- Interactive scripts - Generate docs, diagrams, and slides instantly
+
+**Document types:**
+- **Design Documents:** System architecture with API contracts and trade-offs
+- **RFCs:** Proposals with problem statements and alternatives
+- **ADRs:** Architecture decision records with consequences
+- **API Documentation:** Complete API specs with examples and error codes
+- **Post-Mortems:** Incident analysis with timeline and action items
+- **Runbooks:** Operational procedures and troubleshooting guides
+- **Presentations:** Technical slides for reviews and demos
+
+**Diagram types:**
+- **Architecture:** System components and data flows
+- **Sequence:** Component interactions over time
+- **Flowchart:** Process flows and decision trees
+- **ERD:** Database schema and relationships
+- **State:** State machines and transitions
+- **Gantt:** Project timelines and milestones
+
+**Usage:**
+- "Create a design doc for [feature/system]"
+- "Generate an architecture diagram for [system]"
+- "Write API documentation for [endpoint]"
+- "Create a post-mortem for [incident]"
+- "Build a presentation about [topic]"
+- "Generate a sequence diagram for [flow]"
+
+**Includes:**
+- `generate_doc.sh` - Interactive document generator
+- `generate_diagram.sh` - Mermaid diagram creator
+- `generate_slides.sh` - Technical presentation builder
+- Complete reference materials (best practices, templates, diagram guide, presentation tips)
+- Real-world examples for all document types
+- Multi-platform export guidance
+
+**Perfect for:**
+- Software engineers writing technical docs
+- Engineering managers creating proposals
+- Technical leads documenting architecture
+- DevOps teams building runbooks
+- Product engineers documenting APIs
+- Teams conducting post-mortems
+
+**Example outputs:**
+- 📋 Design Document - Complete system design with architecture diagrams
+- 📜 RFC - Proposal with trade-offs and alternatives
+- 🏛️ ADR - Architectural decision with context and consequences
+- 📡 API Docs - RESTful API reference with code examples
+- 🔍 Post-Mortem - Incident analysis with 5 Whys and action items
+- 📊 Architecture Diagram - System components with data flows
+- 🔄 Sequence Diagram - Service interactions over time
+- 🎤 Presentation - Technical slides with diagrams and metrics
+
+**Use with Claude:**
+```
+"Using technical-doc-writer, create a design doc for a real-time notification system"
+
+"Generate an architecture diagram for a microservices e-commerce platform"
+
+"Create API documentation for the user authentication endpoints"
+
+"Build a presentation for our design review next week"
+
+"Write a post-mortem for the database outage"
+```
+
+[View technical-doc-writer skill →](./technical-doc-writer)
+
+---
+
 ## Installation
 
 ### Install All Skills

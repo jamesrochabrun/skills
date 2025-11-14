@@ -670,6 +670,68 @@ Generate comprehensive test plans, manual test cases, regression suites, and bug
 
 ---
 
+### Educational & Learning Skills
+
+#### math-teacher
+
+**🎓 Interactive math teacher that instantly generates playful, gamified learning experiences.** Creates visual playgrounds, interactive artifacts, and engaging games for kids and adults to learn math from basic arithmetic to advanced calculus.
+
+**Key features:**
+- Instant playground generation - creates HTML artifacts on demand
+- Adaptive learning - scales from elementary to college level
+- Visual learning - graphs, animations, interactive visualizations
+- Gamification - points, achievements, challenges, progress tracking
+- Question-driven - user asks, teacher generates custom experiences
+- Playful techniques - engaging animations, rewards, fun challenges
+- No setup required - all artifacts work standalone in browser
+
+**Topics covered:**
+- **Elementary**: Fractions, multiplication, geometry, patterns, time & money
+- **Middle School**: Linear equations, ratios, percentages, statistics, Pythagorean theorem
+- **High School**: Quadratics, trigonometry, exponentials, logarithms, polynomials
+- **Advanced**: Derivatives, integrals, limits, optimization, differential equations
+
+**Usage:**
+- "Help me understand fractions"
+- "Show me how derivatives work"
+- "I don't understand quadratic functions"
+- "Challenge me on mental math"
+- "Let me explore the Pythagorean theorem"
+
+**Includes:**
+- `generate_playground.sh` - Create interactive math playground
+- `generate_game.sh` - Build gamified math challenge
+- Complete reference materials (basic_math, algebra, calculus, gamification)
+- Interactive visualization templates
+- Game mechanics and reward systems
+
+**Perfect for:**
+- Students learning math concepts
+- Teachers creating interactive lessons
+- Parents helping kids with homework
+- Adults refreshing math skills
+- Anyone wanting to make math fun
+
+**Example artifacts:**
+- 🍕 Fraction Pizza Party - visual fraction explorer with sliders
+- 📊 Quadratic Explorer - real-time parabola graphing with coefficients
+- 📈 Derivative Visualizer - tangent lines and limit animations
+- 🎮 Speed Math Challenge - timed game with progressive difficulty
+- 🧩 Pattern Finder - discover number sequences interactively
+
+**Use with Claude:**
+```
+"Using math-teacher, help me understand how integrals work"
+
+"Create an interactive playground for learning quadratic functions"
+
+"Generate a fun math game for practicing multiplication"
+```
+
+[View math-teacher skill →](./math-teacher)
+
+---
+
 ## Installation
 
 ### Install All Skills

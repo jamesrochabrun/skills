@@ -309,6 +309,86 @@ Generate comprehensive design briefs for design projects, ensuring alignment and
 
 ---
 
+#### frontend-designer
+
+**Transform frontend design through progressive disclosure skills.** Build accessible, responsive, high-performance user interfaces with modern CSS, design tokens, and component-driven architecture.
+
+**Key features:**
+- Component generation with accessibility built-in
+- Design system setup with comprehensive tokens
+- WCAG 2.1 AA compliance auditing
+- Design tokens (colors, typography, spacing, shadows)
+- Responsive design patterns
+- Component library architecture
+- Accessibility-first approach
+- Performance optimization
+
+**Usage:**
+- "Generate an accessible button component"
+- "Set up a design system with tokens"
+- "Audit this page for accessibility"
+- "Create a responsive card layout"
+- "Build a component library"
+
+**Includes:**
+- `generate_component.sh` - Create accessible components (React, Vue, Vanilla JS)
+- `setup_design_system.sh` - Initialize design system with tokens
+- `audit_accessibility.sh` - Comprehensive WCAG 2.1 AA checker
+- Design tokens reference (colors, typography, spacing, etc.)
+- Accessibility checklist (complete WCAG 2.1 guide)
+- Responsive patterns (mobile-first, layouts, grids)
+- Component library architecture guide
+
+**Output:**
+```
+design-system/
+├── tokens/
+│   ├── colors.css (brand, semantic, neutral)
+│   ├── typography.css (fluid type, weights)
+│   ├── spacing.css (spacing scale, containers)
+│   ├── shadows.css (elevation system)
+│   └── borders.css (radius, widths)
+└── components/
+    └── Button/
+        ├── Button.tsx (accessible component)
+        ├── Button.test.tsx (unit tests)
+        ├── Button.module.css (scoped styles)
+        └── Button.stories.tsx (Storybook)
+```
+
+**Perfect for:**
+- Frontend developers building design systems
+- Creating accessible user interfaces
+- Implementing responsive layouts
+- Component library development
+- WCAG 2.1 AA compliance
+- Modern CSS architecture
+- Design token systems
+
+**Features in depth:**
+- **Accessibility:** Focus management, ARIA attributes, keyboard navigation, screen reader support
+- **Responsive:** Mobile-first, fluid typography, container queries, responsive images
+- **Components:** Button, Input, Card, Modal, Dropdown with variants and states
+- **Design Tokens:** CSS custom properties for theming, dark mode support
+- **Testing:** Unit tests, accessibility tests, visual regression
+- **Performance:** Code splitting, lazy loading, optimized rendering
+
+**Use with Claude:**
+```
+"Using the frontend-designer skill, create an accessible navigation
+component with mobile menu, keyboard support, and WCAG 2.1 compliance"
+
+"Set up a design system with design tokens following the
+frontend-designer patterns"
+
+"Audit my landing page for accessibility issues using the
+frontend-designer skill"
+```
+
+[View frontend-designer skill →](./frontend-designer)
+
+---
+
 ### Content & Writing Skills
 
 #### content-brief-generator

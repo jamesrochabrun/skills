@@ -627,6 +627,49 @@ how to optimize the query"
 
 ---
 
+### QA & Testing Skills
+
+#### qa-test-planner
+
+Generate comprehensive test plans, manual test cases, regression suites, and bug reports for QA engineers. Includes Figma MCP integration for design validation.
+
+**Key features:**
+- Interactive test case generation
+- Test plan templates and strategy
+- Regression test suite builder
+- Figma design validation (with MCP)
+- Bug report templates
+- Test coverage analysis
+- Test execution tracking
+
+**Usage:**
+- "Create test cases for login feature"
+- "Generate a regression test suite"
+- "Validate UI against Figma design"
+- "Create a bug report for payment issue"
+- "Build a test plan for new feature"
+
+**Includes:**
+- `generate_test_cases.sh` - Interactive test case creation
+- `create_bug_report.sh` - Structured bug documentation
+- Figma validation guide (design-implementation comparison)
+- Regression testing best practices
+- Test plan templates and examples
+- Bug severity and priority frameworks
+
+**Perfect for:**
+- QA Engineers
+- Manual testers
+- Regression testers
+- UI/Visual testers
+- Test leads and managers
+
+**🎨 Figma MCP:** When configured, enables design-implementation validation and visual testing.
+
+[View qa-test-planner skill →](./qa-test-planner)
+
+---
+
 ## Installation
 
 ### Install All Skills

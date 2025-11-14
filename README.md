@@ -389,6 +389,80 @@ frontend-designer skill"
 
 ---
 
+#### apple-hig-designer
+
+**Design native iOS apps following Apple's Human Interface Guidelines.** Create accessible, intuitive interfaces for iPhone, iPad, and Apple Watch with SwiftUI and UIKit components that feel truly native.
+
+**Key features:**
+- iOS component generation (SwiftUI & UIKit)
+- Apple HIG compliance validation
+- iOS accessibility auditing (VoiceOver, Dynamic Type)
+- San Francisco font system & Dynamic Type
+- Semantic colors with automatic dark mode
+- 8-point grid system & safe areas
+- Native iOS patterns & components
+- SF Symbols integration
+
+**Usage:**
+- "Generate an iOS button component in SwiftUI"
+- "Validate my design against Apple HIG"
+- "Audit this view for iOS accessibility"
+- "Show me navigation patterns for iOS"
+- "Create a list view with proper spacing"
+
+**Includes:**
+- `generate_ios_component.sh` - Create SwiftUI/UIKit components
+- `validate_design.sh` - Check Apple HIG compliance
+- `audit_accessibility.sh` - iOS accessibility checker
+- Typography reference (San Francisco, Dynamic Type)
+- Colors reference (semantic colors, dark mode)
+- Components catalog (buttons, lists, navigation, modals)
+- Accessibility guide (VoiceOver, reduce motion, contrast)
+- Layout & spacing guide (8pt grid, safe areas, touch targets)
+
+**Perfect for:**
+- iOS app developers
+- SwiftUI & UIKit development
+- Native iOS design
+- Apple HIG compliance
+- iOS accessibility (VoiceOver, Dynamic Type)
+- iPad multitasking support
+- Apple Watch app design
+
+**Design Principles:**
+- **Clarity:** Clean, focused content
+- **Deference:** UI supports content, doesn't compete
+- **Depth:** Visual layers and realistic motion
+
+**Components Covered:**
+- Navigation: NavigationStack, TabView, Toolbar
+- Controls: Button, Toggle, Slider, Picker, TextField
+- Content: List, ScrollView, Grid
+- Presentations: Sheet, Alert, ConfirmationDialog
+- Indicators: ProgressView, Activity Indicator
+
+**Accessibility Features:**
+- VoiceOver labels, hints, values
+- Dynamic Type (11 size categories)
+- Reduce Motion support
+- Increase Contrast support
+- Minimum 44pt touch targets
+- Color contrast validation
+
+**Use with Claude:**
+```
+"Using apple-hig-designer, create a SwiftUI navigation view
+with proper large titles and accessibility support"
+
+"Validate my iOS app design against Apple HIG guidelines"
+
+"Audit this SwiftUI view for VoiceOver and Dynamic Type compliance"
+```
+
+[View apple-hig-designer skill →](./apple-hig-designer)
+
+---
+
 ### Content & Writing Skills
 
 #### content-brief-generator

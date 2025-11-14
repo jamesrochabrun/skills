@@ -546,6 +546,87 @@ Generate comprehensive trading plans with risk management, position sizing, and 
 
 ---
 
+### Database & Query Skills
+
+#### query-expert
+
+**Master SQL and database queries across multiple systems.** Generate optimized queries, analyze performance with EXPLAIN plans, design effective indexes, and troubleshoot slow queries for PostgreSQL, MySQL, MongoDB, and more.
+
+**Key features:**
+- Interactive query generation (SQL, MongoDB, GraphQL)
+- Query optimization analysis with recommendations
+- EXPLAIN plan interpretation guide
+- Index strategy recommendations
+- Performance troubleshooting
+- Multi-database support
+- Best practices and anti-patterns
+- Automated query scoring
+
+**Usage:**
+- "Generate an optimized SELECT query with JOINs"
+- "Analyze this slow query and suggest optimizations"
+- "How do I interpret this EXPLAIN output?"
+- "Create indexes for better performance"
+- "Convert this SQL to MongoDB aggregation"
+
+**Includes:**
+- `generate_query.sh` - Interactive query generator
+- `optimize_query.sh` - Query optimization analyzer
+- `analyze_performance.sh` - EXPLAIN plan guide & performance analysis
+- SQL patterns reference (SELECT, JOIN, GROUP BY, CTEs, window functions)
+- Indexing strategies (composite, covering, partial indexes)
+- Query optimization techniques
+- NoSQL queries (MongoDB, GraphQL)
+
+**Databases Supported:**
+- **SQL:** PostgreSQL, MySQL, SQLite, SQL Server, Oracle
+- **NoSQL:** MongoDB, Redis, Elasticsearch, Cassandra
+- **Query Languages:** SQL, MongoDB Query Language, GraphQL, Cypher
+
+**Query Patterns:**
+- SELECT with JOINs (INNER, LEFT, RIGHT, FULL OUTER)
+- Aggregation (GROUP BY, HAVING, aggregates)
+- Window functions (ROW_NUMBER, RANK, running totals)
+- CTEs (Common Table Expressions)
+- Subqueries and correlated subqueries
+- MongoDB aggregation pipelines
+- GraphQL queries with fragments
+
+**Optimization Techniques:**
+- Avoid SELECT * (select only needed columns)
+- Index creation on WHERE/JOIN/ORDER BY columns
+- Composite index column ordering
+- Covering indexes for index-only scans
+- EXISTS vs IN for subqueries
+- Batch operations
+- LIMIT/pagination
+- Query plan analysis
+
+**Performance Analysis:**
+- PostgreSQL EXPLAIN ANALYZE interpretation
+- MySQL EXPLAIN output analysis
+- MongoDB explain() stats
+- Index usage verification
+- Table scan detection
+- JOIN type optimization
+- Automated performance scoring
+
+**Use with Claude:**
+```
+"Using query-expert, generate an optimized query to get
+top 10 customers by total order value with their details"
+
+"Analyze this query and suggest performance improvements:
+SELECT * FROM orders WHERE YEAR(created_at) = 2024"
+
+"Explain what this EXPLAIN ANALYZE output means and
+how to optimize the query"
+```
+
+[View query-expert skill →](./query-expert)
+
+---
+
 ### QA & Testing Skills
 
 #### qa-test-planner

@@ -732,6 +732,66 @@ Generate comprehensive test plans, manual test cases, regression suites, and bug
 
 ---
 
+#### reading-teacher
+
+**📚 Interactive reading teacher that instantly generates playful, engaging learning experiences for children ages 1-10.** Creates visual playgrounds, phonics games, and interactive stories to build reading skills from letter recognition to comprehension.
+
+**Key features:**
+- Instant playground generation - creates HTML artifacts on demand
+- Age-appropriate content - tailored for ages 1-10 with developmental stages
+- Multi-sensory learning - visual, auditory, and interactive elements
+- Phonics & sight words - systematic instruction and high-frequency words
+- Story building - interactive creation and comprehension activities
+- Gamification - stars, badges, rewards, and progress tracking
+- Parent/teacher tools - progress reports and customization options
+
+**Reading stages:**
+- **Pre-Reading (Ages 1-3)**: Letter recognition, sounds, phonemic awareness
+- **Early Reading (Ages 3-5)**: Letter-sound correspondence, CVC words, simple sight words
+- **Beginning Readers (Ages 5-7)**: Phonics patterns, expanding sight words, simple sentences
+- **Developing Readers (Ages 7-10)**: Advanced phonics, comprehension, vocabulary
+
+**Usage:**
+- "Help my toddler learn letters"
+- "Practice sight words for first grade"
+- "Phonics games for kindergarten"
+- "Reading comprehension for 2nd grade"
+- "Build a story with my child"
+
+**Includes:**
+- `generate_playground.sh` - Create interactive reading playground
+- `generate_game.sh` - Build phonics or sight word game
+- Complete reference materials (phonics, sight_words, comprehension)
+- Interactive activity templates
+- Progress tracking systems
+
+**Perfect for:**
+- Parents teaching young children
+- Homeschool reading instruction
+- Early literacy educators
+- ESL/ELL learners
+- Reading intervention support
+
+**Example artifacts:**
+- 🔤 Letter Land Adventure - interactive alphabet with sounds
+- 📖 Sight Word Safari - timed recognition challenges
+- 🎯 Phonics Matching - CVC word building games
+- 📚 Story Builder Studio - create and read stories
+- 🧩 Word Family Explorer - rhyming and pattern practice
+
+**Use with Claude:**
+```
+"Using reading-teacher, help my 4-year-old learn letter sounds"
+
+"Create a sight word practice game for kindergarten"
+
+"Generate an interactive story for reading comprehension"
+```
+
+[View reading-teacher skill →](./reading-teacher)
+
+---
+
 ## Installation
 
 ### Install All Skills

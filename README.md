@@ -1209,33 +1209,96 @@ Generate comprehensive test plans, manual test cases, regression suites, and bug
 
 ## Installation
 
-### Option 1: Install as Marketplace (Recommended)
+You have two ways to use this skills collection:
 
-Add this as a marketplace in Claude Code to browse and use individual skills:
+### Option 1: Install ALL Skills (Bundle)
 
-1. In Claude Code, go to Settings → Marketplaces
-2. Add marketplace source: `https://github.com/jamesrochabrun/skills`
-3. Browse and activate the skills you need
-
-### Option 2: Install as Complete Plugin
-
-Clone this plugin to your Claude Code plugins directory to get all skills at once:
+Get all 21 skills at once with intelligent routing:
 
 ```bash
-# Clone to plugins directory
-git clone https://github.com/jamesrochabrun/skills.git ~/.claude/plugins/skills
+/plugin marketplace add jamesrochabrun/skills
+/plugin install all-skills@skills-marketplace
 ```
+
+**When to use this:**
+- You want access to all skills
+- You prefer Claude to automatically choose relevant skills
+- You work across multiple domains (engineering, product, design, etc.)
+
+### Option 2: Install Individual Skills
+
+Pick only the skills you need for better performance and focused context:
+
+```bash
+# First, add the marketplace
+/plugin marketplace add jamesrochabrun/skills
+
+# Then install specific skills
+/plugin install anthropic-architect@skills-marketplace
+/plugin install prd-generator@skills-marketplace
+/plugin install frontend-designer@skills-marketplace
+# ... install any skills you need
+```
+
+**When to use this:**
+- You work in specific domains
+- You want optimal performance with smaller context
+- You prefer explicit skill activation
+
+### Available Individual Skills
+
+**AI & Architecture:**
+- `/plugin install anthropic-architect@skills-marketplace`
+- `/plugin install anthropic-prompt-engineer@skills-marketplace`
+
+**Engineering:**
+- `/plugin install openai-prompt-engineer@skills-marketplace`
+- `/plugin install git-worktrees@skills-marketplace`
+- `/plugin install llm-router@skills-marketplace`
+- `/plugin install engineer-expertise-extractor@skills-marketplace`
+- `/plugin install engineer-skill-creator@skills-marketplace`
+
+**Product Management:**
+- `/plugin install prd-generator@skills-marketplace`
+- `/plugin install technical-launch-planner@skills-marketplace`
+
+**Design:**
+- `/plugin install design-brief-generator@skills-marketplace`
+- `/plugin install frontend-designer@skills-marketplace`
+- `/plugin install apple-hig-designer@skills-marketplace`
+- `/plugin install book-illustrator@skills-marketplace`
+
+**Content & Writing:**
+- `/plugin install content-brief-generator@skills-marketplace`
+- `/plugin install kids-book-writer@skills-marketplace`
+
+**Trading & Finance:**
+- `/plugin install trading-plan-generator@skills-marketplace`
+
+**Database & Query:**
+- `/plugin install query-expert@skills-marketplace`
+
+**QA & Testing:**
+- `/plugin install qa-test-planner@skills-marketplace`
+
+**Educational & Learning:**
+- `/plugin install math-teacher@skills-marketplace`
+- `/plugin install reading-teacher@skills-marketplace`
+- `/plugin install leetcode-teacher@skills-marketplace`
 
 ### Plugin Structure
 
-The plugin follows the standard Claude Code plugin architecture and supports both marketplace and plugin modes:
+The plugin follows the standard Claude Code plugin architecture:
 
 ```
 skills/
 ├── .claude-plugin/
 │   ├── plugin.json          # Plugin metadata
-│   └── marketplace.json     # Marketplace metadata
-├── skills/                   # All skills collection (18 total)
+│   └── marketplace.json     # Marketplace configuration (22 plugins: 1 bundle + 21 individual)
+├── skills/                   # All skills collection (21 total)
+│   ├── anthropic-architect/
+│   ├── anthropic-prompt-engineer/
+│   ├── openai-prompt-engineer/
 │   ├── git-worktrees/
 │   ├── llm-router/
 │   ├── engineer-expertise-extractor/
@@ -1258,11 +1321,17 @@ skills/
 └── LICENSE
 ```
 
-### Using Individual Skills
+### How It Works
 
-Each skill in the `skills/` directory can be referenced independently:
-- **As Marketplace**: Browse and activate skills individually through Claude Code UI
-- **As Plugin**: All skills are automatically available when the plugin is installed
+**Marketplace Configuration:**
+- The `marketplace.json` exposes 22 installable options
+- 1 "all-skills" bundle with `strict: false` (intelligent routing across all 21 skills)
+- 21 individual skills with `strict: true` (explicit activation when installed)
+
+**Installation Flexibility:**
+- Install the bundle for comprehensive coverage with smart skill selection
+- Install individual skills for focused, high-performance context
+- Mix and match based on your needs
 
 ## Requirements
 
@@ -1279,23 +1348,33 @@ MIT License - See individual skills for their specific licenses.
 
 ## Architecture
 
-This repository supports both **Plugin** and **Marketplace** modes:
+This marketplace provides flexible installation options:
 
-### As a Plugin
-- Install all 18 skills as a single unit
-- All skills immediately available
-- Perfect for comprehensive workflow coverage
+### Bundle Installation (all-skills)
+- **What:** All 21 skills in one package
+- **Behavior:** `strict: false` enables intelligent skill routing
+- **Best for:** Users who work across multiple domains and want comprehensive coverage
+- **Trade-off:** Larger context window, but Claude automatically selects relevant skills
 
-### As a Marketplace
-- Browse and select individual skills
-- Activate only what you need
-- Keep your workspace focused
+### Individual Installation
+- **What:** Install only specific skills you need
+- **Behavior:** `strict: true` ensures explicit skill activation
+- **Best for:** Focused workflows in specific domains (e.g., only engineering or only design)
+- **Trade-off:** Smaller context window for better performance, but requires manual skill selection
 
-Both modes follow the official Claude Code architecture, making it easy to:
-- Install and manage skills
-- Share across projects and teams
-- Version control with metadata
-- Integrate with Claude Code's ecosystem
+### Technical Details
+
+**marketplace.json structure:**
+- 22 total plugin entries
+- 1 "all-skills" bundle pointing to root with all 21 skills
+- 21 individual plugins, each pointing to a single skill
+- All use same repository source (`./`) with different skill paths
+
+**Why this works:**
+- No duplication: Skills live in one place (`skills/` directory)
+- Flexible installation: Users choose bundle vs individual
+- No maintenance burden: No individual `plugin.json` files needed
+- Clean architecture: Single source of truth in `marketplace.json`
 
 For more information about Claude Code plugins and marketplaces, visit the [official documentation](https://github.com/anthropics/claude-code/tree/main/plugins).
 
@@ -1307,6 +1386,12 @@ Built for use with [Claude Code](https://claude.ai/code) by Anthropic.
 
 ## Version
 
-**Current Version:** 1.0.0
+**Current Version:** 2.0.0
 
-See [plugin.json](./.claude-plugin/plugin.json) for complete metadata.
+**What's New in 2.0.0:**
+- ✨ Individual skill installation support
+- 🎯 22 installable options (1 bundle + 21 individual skills)
+- ⚡ Better performance with focused skill selection
+- 🔧 Smart routing with `strict: false` for bundle, `strict: true` for individual skills
+
+See [marketplace.json](./.claude-plugin/marketplace.json) for complete configuration.

@@ -2,7 +2,7 @@
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "skills-marketplace",
   "version": "1.0.0",
-  "description": "A comprehensive collection of 16 custom skills for Claude Code covering engineering, product management, design, content, trading, database, QA, and educational domains",
+  "description": "A comprehensive collection of 18 custom skills for Claude Code covering engineering, product management, design, content, trading, database, QA, and educational domains",
   "owner": {
     "name": "James Rochabrun",
     "email": "jamesrochabrun@gmail.com"
@@ -119,6 +119,20 @@
       "source": "./skills/leetcode-teacher",
       "category": "education",
       "tags": ["leetcode", "interviews", "coding", "algorithms"]
+    },
+    {
+      "name": "kids-book-writer",
+      "description": "Expert children's book writer creating delightful, engaging books for ages 2-9 with rhyming, stories, songs, and educational content",
+      "source": "./skills/kids-book-writer",
+      "category": "content",
+      "tags": ["writing", "children", "books", "education", "storytelling"]
+    },
+    {
+      "name": "book-illustrator",
+      "description": "Expert children's book illustrator guide with age-appropriate styles, color theory, character design, and visual storytelling",
+      "source": "./skills/book-illustrator",
+      "category": "design",
+      "tags": ["illustration", "children", "books", "visual-design", "art"]
     }
   ]
 }

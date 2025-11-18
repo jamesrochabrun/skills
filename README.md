@@ -1,12 +1,54 @@
 # Skills Plugin & Marketplace
 
-A comprehensive plugin and marketplace for Claude Code containing 16 custom skills across engineering, product management, design, content, trading, database, QA, and educational domains.
+A comprehensive plugin and marketplace for Claude Code containing 18 custom skills across engineering, product management, design, content, trading, database, QA, and educational domains.
 
 ## Overview
 
 This repository provides Claude Code with specialized knowledge and workflows through a curated collection of skills. Each skill includes interactive scripts, comprehensive reference materials, and best practices for specific domains.
 
 **Use as a Marketplace** to browse and select individual skills, or **install as a Plugin** to get all skills at once.
+
+## Skills Index
+
+Quick navigation to all 18 skills organized by category:
+
+### Engineering (4 skills)
+- [git-worktrees](#git-worktrees) - Manage Git worktrees for parallel development
+- [llm-router](#llm-router) - Route requests to different LLM providers
+- [engineer-expertise-extractor](#engineer-expertise-extractor) - Extract engineering expertise from GitHub
+- [engineer-skill-creator](#engineer-skill-creator) - Transform expertise into actionable skills
+
+### Product Management (1 skill)
+- [prd-generator](#prd-generator) - Generate Product Requirements Documents
+
+### Product Marketing (1 skill)
+- [technical-launch-planner](#technical-launch-planner) - Plan technical product launches
+
+### Design (4 skills)
+- [design-brief-generator](#design-brief-generator) - Generate comprehensive design briefs
+- [frontend-designer](#frontend-designer) - Build accessible, responsive UIs
+- [apple-hig-designer](#apple-hig-designer) - Design native iOS apps
+- [book-illustrator](#book-illustrator) - Children's book illustration guide
+
+### Content & Writing (2 skills)
+- [content-brief-generator](#content-brief-generator) - Generate SEO-optimized content briefs
+- [kids-book-writer](#kids-book-writer) - Write engaging children's books
+
+### Trading & Finance (1 skill)
+- [trading-plan-generator](#trading-plan-generator) - Generate trading plans with risk management
+
+### Database & Query (1 skill)
+- [query-expert](#query-expert) - Master SQL and database queries
+
+### QA & Testing (1 skill)
+- [qa-test-planner](#qa-test-planner) - Generate test plans and bug reports
+
+### Educational & Learning (3 skills)
+- [math-teacher](#math-teacher) - Interactive math learning with gamification
+- [reading-teacher](#reading-teacher) - Interactive reading teacher for ages 1-10
+- [leetcode-teacher](#leetcode-teacher) - Technical interview preparation
+
+---
 
 ## Skills
 
@@ -469,6 +511,42 @@ with proper large titles and accessibility support"
 
 ---
 
+#### book-illustrator
+
+**🎨 Expert children's book illustrator guide with 2024-2025 best practices.** Focuses on age-appropriate styles, color theory, character design, and visual storytelling for kids books that captivate young readers.
+
+**Key features:**
+- Age-appropriate design (ages 0-12)
+- Character development and expressiveness
+- Color theory for emotion and mood
+- Visual storytelling through composition
+- Current illustration trends and timeless techniques
+- Professional illustration standards
+- Print and digital publishing requirements
+
+**Usage:**
+- "Design a character for a children's book about friendship"
+- "Create a color palette for a bedtime story"
+- "Develop illustration guidelines for ages 4-6"
+- "Plan visual storytelling for a picture book"
+
+**Includes:**
+- Character design principles
+- Color theory and psychology
+- Composition and layout techniques
+- Illustration style guide
+- Age-specific design considerations
+
+**Perfect for:**
+- Children's book illustrators
+- Graphic designers working on kids content
+- Authors self-publishing picture books
+- Art directors for children's publishing
+
+[View book-illustrator skill →](./skills/book-illustrator)
+
+---
+
 ### Content & Writing Skills
 
 #### content-brief-generator
@@ -506,6 +584,43 @@ Generate comprehensive content briefs for writers, ensuring strategic, SEO-optim
 - SEO specialists
 
 [View content-brief-generator skill →](./skills/content-brief-generator)
+
+---
+
+#### kids-book-writer
+
+**📚 Expert children's book writer creating delightful, engaging books for ages 2-9.** Specializes in rhyming books, stories, songs with proper values, educational content, and age-appropriate language. Crafts books that captivate young readers while teaching important life lessons.
+
+**Key features:**
+- Rhyming books with perfect meter and rhythm
+- Picture book stories with engaging narratives
+- Songs and poems for young learners
+- Educational content (phonics, sight words, vocabulary)
+- Values and life lessons (kindness, empathy, courage)
+- Age-appropriate language for reading stages
+- Interactive elements (call-and-response, repetition)
+- Illustration guidance for bringing stories to life
+
+**Usage:**
+- "Write a rhyming book about sharing for 3-year-olds"
+- "Create a bedtime story with a lesson about courage"
+- "Generate a phonics song for letter sounds"
+- "Write a picture book about making friends"
+
+**Includes:**
+- Age-appropriate writing guidelines
+- Story structure frameworks
+- Rhyming techniques and patterns
+- Values and themes reference
+- Bestseller elements guide
+
+**Perfect for:**
+- Children's book authors
+- Parents creating custom stories
+- Educators developing reading materials
+- Content creators for kids
+
+[View kids-book-writer skill →](./skills/kids-book-writer)
 
 ---
 
@@ -886,7 +1001,7 @@ skills/
 ├── .claude-plugin/
 │   ├── plugin.json          # Plugin metadata
 │   └── marketplace.json     # Marketplace metadata
-├── skills/                   # All skills collection (16 total)
+├── skills/                   # All skills collection (18 total)
 │   ├── git-worktrees/
 │   ├── llm-router/
 │   ├── engineer-expertise-extractor/
@@ -896,7 +1011,9 @@ skills/
 │   ├── design-brief-generator/
 │   ├── frontend-designer/
 │   ├── apple-hig-designer/
+│   ├── book-illustrator/
 │   ├── content-brief-generator/
+│   ├── kids-book-writer/
 │   ├── trading-plan-generator/
 │   ├── query-expert/
 │   ├── qa-test-planner/
@@ -931,7 +1048,7 @@ MIT License - See individual skills for their specific licenses.
 This repository supports both **Plugin** and **Marketplace** modes:
 
 ### As a Plugin
-- Install all 16 skills as a single unit
+- Install all 18 skills as a single unit
 - All skills immediately available
 - Perfect for comprehensive workflow coverage
 

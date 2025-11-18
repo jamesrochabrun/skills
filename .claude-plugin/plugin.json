@@ -1,5 +1,6 @@
 {
   "name": "skills",
   "version": "1.0.0",
-  "description": "A comprehensive collection of custom skills for Claude Code covering engineering, product management, design, content, trading, database, QA, and educational domains"
+  "description": "A comprehensive collection of custom skills for Claude Code covering engineering, product management, design, content, trading, database, QA, and educational domains",
+  "skills": "./skills/"
 }

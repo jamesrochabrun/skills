@@ -1,7 +1,8 @@
 {
-  "name": "Skills Marketplace",
+  "name": "skills-marketplace",
   "description": "A comprehensive collection of 16 custom skills for Claude Code covering engineering, product management, design, content, trading, database, QA, and educational domains",
   "version": "1.0.0",
+  "owner": "jamesrochabrun",
   "author": {
     "name": "James Rochabrun",
     "email": "jamesrochabrun@gmail.com",
@@ -11,7 +12,7 @@
     "type": "git",
     "url": "https://github.com/jamesrochabrun/skills"
   },
-  "skills": [
+  "plugins": [
     {
       "name": "git-worktrees",
       "path": "skills/git-worktrees",

@@ -1,0 +1,128 @@
+{
+  "name": "Skills Marketplace",
+  "description": "A comprehensive collection of 16 custom skills for Claude Code covering engineering, product management, design, content, trading, database, QA, and educational domains",
+  "version": "1.0.0",
+  "author": {
+    "name": "James Rochabrun",
+    "email": "jamesrochabrun@gmail.com",
+    "url": "https://github.com/jamesrochabrun"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jamesrochabrun/skills"
+  },
+  "skills": [
+    {
+      "name": "git-worktrees",
+      "path": "skills/git-worktrees",
+      "description": "Manage Git worktrees for parallel Claude Code development",
+      "category": "Engineering",
+      "tags": ["git", "workflow", "development"]
+    },
+    {
+      "name": "llm-router",
+      "path": "skills/llm-router",
+      "description": "Route AI requests to different LLM providers (OpenAI, Grok, Groq, DeepSeek, OpenRouter)",
+      "category": "Engineering",
+      "tags": ["llm", "ai", "routing"]
+    },
+    {
+      "name": "engineer-expertise-extractor",
+      "path": "skills/engineer-expertise-extractor",
+      "description": "Extract and replicate engineering expertise from GitHub contributions",
+      "category": "Engineering",
+      "tags": ["github", "expertise", "knowledge-extraction"]
+    },
+    {
+      "name": "engineer-skill-creator",
+      "path": "skills/engineer-skill-creator",
+      "description": "Transform extracted expertise into actionable skills with progressive disclosure",
+      "category": "Engineering",
+      "tags": ["skills", "knowledge-management", "expertise"]
+    },
+    {
+      "name": "prd-generator",
+      "path": "skills/prd-generator",
+      "description": "Generate comprehensive Product Requirements Documents (PRDs)",
+      "category": "Product Management",
+      "tags": ["prd", "product", "requirements"]
+    },
+    {
+      "name": "technical-launch-planner",
+      "path": "skills/technical-launch-planner",
+      "description": "Plan and execute technical product launches for developer tools and APIs",
+      "category": "Product Marketing",
+      "tags": ["launch", "marketing", "developer-tools"]
+    },
+    {
+      "name": "design-brief-generator",
+      "path": "skills/design-brief-generator",
+      "description": "Generate comprehensive design briefs with accessibility guidelines",
+      "category": "Design",
+      "tags": ["design", "brief", "accessibility"]
+    },
+    {
+      "name": "frontend-designer",
+      "path": "skills/frontend-designer",
+      "description": "Build accessible, responsive, high-performance user interfaces",
+      "category": "Design",
+      "tags": ["frontend", "ui", "accessibility", "design-system"]
+    },
+    {
+      "name": "apple-hig-designer",
+      "path": "skills/apple-hig-designer",
+      "description": "Design native iOS apps following Apple's Human Interface Guidelines",
+      "category": "Design",
+      "tags": ["ios", "apple", "hig", "swiftui"]
+    },
+    {
+      "name": "content-brief-generator",
+      "path": "skills/content-brief-generator",
+      "description": "Generate comprehensive content briefs with SEO optimization",
+      "category": "Content & Writing",
+      "tags": ["content", "seo", "writing"]
+    },
+    {
+      "name": "trading-plan-generator",
+      "path": "skills/trading-plan-generator",
+      "description": "Generate trading plans with risk management and position sizing",
+      "category": "Trading & Finance",
+      "tags": ["trading", "finance", "risk-management"]
+    },
+    {
+      "name": "query-expert",
+      "path": "skills/query-expert",
+      "description": "Master SQL and database queries across multiple systems",
+      "category": "Database & Query",
+      "tags": ["sql", "database", "optimization", "queries"]
+    },
+    {
+      "name": "qa-test-planner",
+      "path": "skills/qa-test-planner",
+      "description": "Generate comprehensive test plans and bug reports with Figma integration",
+      "category": "QA & Testing",
+      "tags": ["qa", "testing", "figma", "bug-reports"]
+    },
+    {
+      "name": "math-teacher",
+      "path": "skills/math-teacher",
+      "description": "Interactive math teacher with gamified learning experiences",
+      "category": "Educational & Learning",
+      "tags": ["math", "education", "interactive", "gamification"]
+    },
+    {
+      "name": "reading-teacher",
+      "path": "skills/reading-teacher",
+      "description": "Interactive reading teacher for children ages 1-10",
+      "category": "Educational & Learning",
+      "tags": ["reading", "education", "children", "phonics"]
+    },
+    {
+      "name": "leetcode-teacher",
+      "path": "skills/leetcode-teacher",
+      "description": "Interactive LeetCode-style teacher for technical interviews",
+      "category": "Educational & Learning",
+      "tags": ["leetcode", "interviews", "coding", "algorithms"]
+    }
+  ]
+}

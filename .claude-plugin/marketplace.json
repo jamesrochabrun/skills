@@ -2,7 +2,7 @@
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "skills-marketplace",
   "version": "1.0.0",
-  "description": "A comprehensive collection of 18 custom skills for Claude Code covering engineering, product management, design, content, trading, database, QA, and educational domains",
+  "description": "A comprehensive collection of 20 custom skills for Claude Code covering engineering, product management, design, content, trading, database, QA, educational, and AI prompt engineering domains",
   "owner": {
     "name": "James Rochabrun",
     "email": "jamesrochabrun@gmail.com"
@@ -10,28 +10,30 @@
   "plugins": [
     {
       "name": "all-skills",
-      "description": "Complete collection of all 18 skills including engineering, product, design, content, finance, database, QA, and educational skills",
+      "description": "Complete collection of all 20 skills including engineering, product, design, content, finance, database, QA, educational, and AI prompt engineering skills",
       "source": "./",
       "strict": false,
       "skills": [
-        "./skills/git-worktrees",
-        "./skills/llm-router",
-        "./skills/engineer-expertise-extractor",
-        "./skills/engineer-skill-creator",
-        "./skills/prd-generator",
-        "./skills/technical-launch-planner",
-        "./skills/design-brief-generator",
-        "./skills/frontend-designer",
+        "./skills/anthropic-prompt-engineer",
         "./skills/apple-hig-designer",
         "./skills/book-illustrator",
         "./skills/content-brief-generator",
+        "./skills/design-brief-generator",
+        "./skills/engineer-expertise-extractor",
+        "./skills/engineer-skill-creator",
+        "./skills/frontend-designer",
+        "./skills/git-worktrees",
         "./skills/kids-book-writer",
-        "./skills/trading-plan-generator",
-        "./skills/query-expert",
-        "./skills/qa-test-planner",
+        "./skills/leetcode-teacher",
+        "./skills/llm-router",
         "./skills/math-teacher",
+        "./skills/openai-prompt-engineer",
+        "./skills/prd-generator",
+        "./skills/qa-test-planner",
+        "./skills/query-expert",
         "./skills/reading-teacher",
-        "./skills/leetcode-teacher"
+        "./skills/technical-launch-planner",
+        "./skills/trading-plan-generator"
       ]
     }
   ]

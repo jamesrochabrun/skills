@@ -114,281 +114,15 @@ Transforms math learning into interactive, visual experiences:
 
 **User asks:** "Help me understand fractions"
 
-**Teacher generates:**
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🍕 Fraction Pizza Party!</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Comic Sans MS', cursive, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 20px;
-      color: white;
-    }
-    .header {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    h1 { font-size: 3em; margin-bottom: 10px; }
-    .score {
-      background: rgba(255,255,255,0.2);
-      padding: 10px 20px;
-      border-radius: 20px;
-      font-size: 1.5em;
-      display: inline-block;
-    }
-    .pizza-container {
-      position: relative;
-      width: 300px;
-      height: 300px;
-      margin: 20px;
-    }
-    .pizza {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      background: #FFA500;
-      border: 10px solid #CC8400;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-    }
-    .slice {
-      position: absolute;
-      width: 50%;
-      height: 50%;
-      top: 50%;
-      left: 50%;
-      transform-origin: 0 0;
-      background: #FF6347;
-      border: 2px solid white;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    .slice:hover { transform: scale(1.05) !important; }
-    .slice.eaten {
-      background: #FFA500;
-      border-color: #CC8400;
-    }
-    .controls {
-      background: white;
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-      color: #333;
-      margin: 20px;
-      max-width: 500px;
-    }
-    .slider-group {
-      margin: 20px 0;
-    }
-    label {
-      font-weight: bold;
-      font-size: 1.2em;
-      display: block;
-      margin-bottom: 10px;
-    }
-    input[type="range"] {
-      width: 100%;
-      height: 10px;
-      border-radius: 5px;
-      background: #ddd;
-      outline: none;
-      cursor: pointer;
-    }
-    .value-display {
-      font-size: 2em;
-      text-align: center;
-      margin: 20px 0;
-      color: #667eea;
-      font-weight: bold;
-    }
-    .explanation {
-      background: #f0f0f0;
-      padding: 15px;
-      border-radius: 10px;
-      margin-top: 20px;
-      font-size: 1.1em;
-      line-height: 1.6;
-    }
-    button {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      border: none;
-      padding: 15px 30px;
-      font-size: 1.2em;
-      border-radius: 10px;
-      cursor: pointer;
-      margin: 10px;
-      transition: transform 0.2s;
-    }
-    button:hover { transform: scale(1.05); }
-    .achievement {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: gold;
-      color: #333;
-      padding: 20px;
-      border-radius: 10px;
-      font-weight: bold;
-      animation: slideIn 0.5s ease;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    }
-    @keyframes slideIn {
-      from { transform: translateX(400px); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
-    }
-  </style>
-</head>
-<body>
-  <div class="header">
-    <h1>🍕 Fraction Pizza Party!</h1>
-    <div class="score">Points: <span id="points">0</span> 🌟</div>
-  </div>
-
-  <div class="pizza-container">
-    <div class="pizza" id="pizza"></div>
-  </div>
-
-  <div class="controls">
-    <div class="slider-group">
-      <label for="numerator">How many slices do you want? (Numerator)</label>
-      <input type="range" id="numerator" min="0" max="8" value="1" step="1">
-    </div>
-
-    <div class="slider-group">
-      <label for="denominator">How many total slices? (Denominator)</label>
-      <input type="range" id="denominator" min="1" max="8" value="4" step="1">
-    </div>
-
-    <div class="value-display">
-      <span id="fraction">1/4</span>
-    </div>
-
-    <div class="explanation">
-      <strong>You have:</strong> <span id="explanation"></span>
-    </div>
-
-    <button onclick="checkEquivalent()">Find Equivalent Fraction! ✨</button>
-    <button onclick="reset()">New Pizza! 🆕</button>
-  </div>
-
-  <script>
-    let points = 0;
-    const numeratorSlider = document.getElementById('numerator');
-    const denominatorSlider = document.getElementById('denominator');
-    const fractionDisplay = document.getElementById('fraction');
-    const explanationDiv = document.getElementById('explanation');
-    const pizza = document.getElementById('pizza');
-
-    function updatePizza() {
-      const numerator = parseInt(numeratorSlider.value);
-      const denominator = parseInt(denominatorSlider.value);
-
-      // Update max for numerator
-      numeratorSlider.max = denominator;
-      if (numerator > denominator) {
-        numeratorSlider.value = denominator;
-      }
-
-      // Update display
-      fractionDisplay.textContent = `${numerator}/${denominator}`;
-
-      // Clear pizza
-      pizza.innerHTML = '';
-
-      // Create slices
-      const anglePerSlice = 360 / denominator;
-      for (let i = 0; i < denominator; i++) {
-        const slice = document.createElement('div');
-        slice.className = 'slice';
-        if (i >= numerator) {
-          slice.classList.add('eaten');
-        }
-        slice.style.transform = `rotate(${i * anglePerSlice}deg) skewY(${90 - anglePerSlice}deg)`;
-        pizza.appendChild(slice);
-      }
-
-      // Update explanation
-      const percentage = ((numerator / denominator) * 100).toFixed(1);
-      explanationDiv.innerHTML = `
-        <strong>${numerator}</strong> out of <strong>${denominator}</strong> slices =
-        <strong>${percentage}%</strong> of the pizza!
-        ${numerator === denominator ? '🎉 You have the whole pizza!' : ''}
-        ${numerator === 0 ? '😢 No pizza for you!' : ''}
-      `;
-
-      // Award points
-      if (numerator === denominator && numerator > 0) {
-        awardPoints(10, 'Whole Pizza!');
-      }
-    }
-
-    function checkEquivalent() {
-      const numerator = parseInt(numeratorSlider.value);
-      const denominator = parseInt(denominatorSlider.value);
-
-      // Find simplified fraction
-      const gcd = (a, b) => b === 0 ? a : gcd(b, a % b);
-      const divisor = gcd(numerator, denominator);
-      const simplified = `${numerator / divisor}/${denominator / divisor}`;
-
-      if (divisor > 1) {
-        showAchievement(`✨ ${numerator}/${denominator} = ${simplified}!`);
-        awardPoints(20, 'Found equivalent!');
-      } else {
-        showAchievement('Already simplified! 👏');
-        awardPoints(5, 'Already simple!');
-      }
-    }
-
-    function awardPoints(amount, reason) {
-      points += amount;
-      document.getElementById('points').textContent = points;
-    }
-
-    function showAchievement(text) {
-      const achievement = document.createElement('div');
-      achievement.className = 'achievement';
-      achievement.textContent = text;
-      document.body.appendChild(achievement);
-      setTimeout(() => achievement.remove(), 3000);
-    }
-
-    function reset() {
-      numeratorSlider.value = 1;
-      denominatorSlider.value = 4;
-      updatePizza();
-      awardPoints(5, 'New pizza!');
-    }
-
-    numeratorSlider.addEventListener('input', updatePizza);
-    denominatorSlider.addEventListener('input', updatePizza);
-
-    // Initialize
-    updatePizza();
-  </script>
-</body>
-</html>
-```
-
-**Features:**
+**Teacher generates:** An interactive pizza fraction visualizer with:
 - Visual pizza slices to understand fractions
 - Interactive sliders to change numerator/denominator
 - Real-time percentage calculation
 - Gamified with points and achievements
 - Equivalent fraction finder
 - Color-coded, playful design
+
+(See `/references/examples/fraction-visualizer.html` for full implementation)
 
 ### Example 2: Quadratic Explorer (High School)
 
@@ -487,36 +221,15 @@ Reward correct answers:
 
 ### Standard Playground Structure
 
-Every generated artifact includes:
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>[Math Topic] - Interactive Playground</title>
-  <style>
-    /* Playful, colorful styling */
-    /* Responsive design */
-    /* Animations and transitions */
-  </style>
-</head>
-<body>
-  <!-- Header with title and score -->
-  <!-- Visual representation area -->
-  <!-- Interactive controls -->
-  <!-- Explanation section -->
-  <!-- Gamification elements -->
-
-  <script>
-    // Core math logic
-    // Visualization updates
-    // Game mechanics
-    // Achievement system
-  </script>
-</body>
-</html>
-```
+Every generated artifact follows this pattern:
+- Header with title and score display
+- Visual representation area (canvas, SVG, or HTML elements)
+- Interactive controls (sliders, inputs, buttons)
+- Explanation section with real-time feedback
+- Gamification elements (points, achievements, streaks)
+- Self-contained HTML with inline CSS and JavaScript
+- Responsive design for mobile/tablet/desktop
+- Playful, colorful styling with animations
 
 ### Key Features in Every Artifact
 
@@ -552,47 +265,12 @@ Every generated artifact includes:
 
 ## Technical Implementation
 
-### Canvas Drawing (for graphs)
-```javascript
-const canvas = document.getElementById('graph');
-const ctx = canvas.getContext('2d');
-
-function drawFunction(fn, xMin, xMax) {
-  ctx.beginPath();
-  for (let x = xMin; x <= xMax; x += 0.1) {
-    const y = fn(x);
-    const px = (x - xMin) / (xMax - xMin) * canvas.width;
-    const py = canvas.height - (y / 10) * canvas.height;
-    if (x === xMin) ctx.moveTo(px, py);
-    else ctx.lineTo(px, py);
-  }
-  ctx.strokeStyle = '#667eea';
-  ctx.lineWidth = 3;
-  ctx.stroke();
-}
-```
-
-### Real-time Updates
-```javascript
-// Update visualization as user changes inputs
-input.addEventListener('input', () => {
-  const value = parseFloat(input.value);
-  updateVisualization(value);
-  updateExplanation(value);
-  checkForAchievements(value);
-});
-```
-
-### Animation Loop
-```javascript
-function animate() {
-  // Clear canvas
-  // Update positions
-  // Draw new frame
-  // Check game state
-  requestAnimationFrame(animate);
-}
-```
+### Key Techniques
+- **Canvas Drawing**: Use HTML5 Canvas API for graphs and visualizations
+- **Real-time Updates**: Event listeners that update on user input
+- **Animation Loops**: RequestAnimationFrame for smooth animations
+- **Responsive Design**: CSS Grid, Flexbox, and media queries
+- **No Dependencies**: Pure HTML/CSS/JavaScript (no libraries required)
 
 ## Reference Materials
 
@@ -610,6 +288,29 @@ All in `/scripts`:
 - **generate_playground.sh** - Create interactive math playground
 - **generate_game.sh** - Build gamified math challenge
 - **generate_quiz.sh** - Create adaptive quiz system
+
+## Implementation Approach
+
+**IMPORTANT:** When this skill is invoked, use the Bash tool to execute the appropriate script.
+
+### How to use the scripts:
+
+1. **For general math games/challenges:** Use `generate_game.sh`
+   ```bash
+   bash /Users/jamesrochabrun/Desktop/skills/skills/math-teacher/scripts/generate_game.sh
+   ```
+
+2. **For interactive playgrounds:** Use `generate_playground.sh`
+   ```bash
+   bash /Users/jamesrochabrun/Desktop/skills/skills/math-teacher/scripts/generate_playground.sh
+   ```
+
+3. **For quizzes:** Use `generate_quiz.sh` (if it exists)
+   ```bash
+   bash /Users/jamesrochabrun/Desktop/skills/skills/math-teacher/scripts/generate_quiz.sh
+   ```
+
+**DO NOT** try to invoke these scripts automatically when the skill loads - this causes bash security errors. Always use the Bash tool explicitly to run them.
 
 ## Best Practices
 

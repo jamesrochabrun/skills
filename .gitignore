@@ -35,3 +35,6 @@ Temporary Items
 # Environment
 .env
 .env.local
+
+# Generated math games (temporary playground files)
+math-games/

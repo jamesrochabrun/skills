@@ -1,10 +1,12 @@
-# Skills Plugin
+# Skills Plugin & Marketplace
 
-A comprehensive plugin for Claude Code containing a collection of custom skills across engineering, product management, design, content, trading, database, QA, and educational domains.
+A comprehensive plugin and marketplace for Claude Code containing 16 custom skills across engineering, product management, design, content, trading, database, QA, and educational domains.
 
 ## Overview
 
-This plugin provides Claude Code with specialized knowledge and workflows through a curated collection of skills. Each skill includes interactive scripts, comprehensive reference materials, and best practices for specific domains.
+This repository provides Claude Code with specialized knowledge and workflows through a curated collection of skills. Each skill includes interactive scripts, comprehensive reference materials, and best practices for specific domains.
+
+**Use as a Marketplace** to browse and select individual skills, or **install as a Plugin** to get all skills at once.
 
 ## Skills
 
@@ -858,9 +860,17 @@ Generate comprehensive test plans, manual test cases, regression suites, and bug
 
 ## Installation
 
-### Install the Plugin
+### Option 1: Install as Marketplace (Recommended)
 
-Clone this plugin to your Claude Code plugins directory:
+Add this as a marketplace in Claude Code to browse and use individual skills:
+
+1. In Claude Code, go to Settings → Marketplaces
+2. Add marketplace source: `https://github.com/jamesrochabrun/skills`
+3. Browse and activate the skills you need
+
+### Option 2: Install as Complete Plugin
+
+Clone this plugin to your Claude Code plugins directory to get all skills at once:
 
 ```bash
 # Clone to plugins directory
@@ -869,25 +879,39 @@ git clone https://github.com/jamesrochabrun/skills.git ~/.claude/plugins/skills
 
 ### Plugin Structure
 
-The plugin follows the standard Claude Code plugin architecture:
+The plugin follows the standard Claude Code plugin architecture and supports both marketplace and plugin modes:
 
 ```
 skills/
 ├── .claude-plugin/
-│   └── plugin.json          # Plugin metadata
-├── skills/                   # All skills collection
+│   ├── plugin.json          # Plugin metadata
+│   └── marketplace.json     # Marketplace metadata
+├── skills/                   # All skills collection (16 total)
 │   ├── git-worktrees/
 │   ├── llm-router/
+│   ├── engineer-expertise-extractor/
+│   ├── engineer-skill-creator/
+│   ├── prd-generator/
+│   ├── technical-launch-planner/
+│   ├── design-brief-generator/
 │   ├── frontend-designer/
+│   ├── apple-hig-designer/
+│   ├── content-brief-generator/
+│   ├── trading-plan-generator/
+│   ├── query-expert/
+│   ├── qa-test-planner/
 │   ├── math-teacher/
-│   └── ... (16 total skills)
+│   ├── reading-teacher/
+│   └── leetcode-teacher/
 ├── README.md                 # This file
 └── LICENSE
 ```
 
 ### Using Individual Skills
 
-Each skill in the `skills/` directory can be referenced independently. Skills are automatically available when the plugin is installed.
+Each skill in the `skills/` directory can be referenced independently:
+- **As Marketplace**: Browse and activate skills individually through Claude Code UI
+- **As Plugin**: All skills are automatically available when the plugin is installed
 
 ## Requirements
 
@@ -902,15 +926,27 @@ Feel free to contribute additional skills or improvements via pull requests.
 
 MIT License - See individual skills for their specific licenses.
 
-## Plugin Architecture
+## Architecture
 
-This plugin follows the official Claude Code plugin structure, making it easy to:
-- Install and manage as a single unit
+This repository supports both **Plugin** and **Marketplace** modes:
+
+### As a Plugin
+- Install all 16 skills as a single unit
+- All skills immediately available
+- Perfect for comprehensive workflow coverage
+
+### As a Marketplace
+- Browse and select individual skills
+- Activate only what you need
+- Keep your workspace focused
+
+Both modes follow the official Claude Code architecture, making it easy to:
+- Install and manage skills
 - Share across projects and teams
 - Version control with metadata
-- Integrate with Claude Code's plugin system
+- Integrate with Claude Code's ecosystem
 
-For more information about Claude Code plugins, visit the [official documentation](https://github.com/anthropics/claude-code/tree/main/plugins).
+For more information about Claude Code plugins and marketplaces, visit the [official documentation](https://github.com/anthropics/claude-code/tree/main/plugins).
 
 ## Credits
 

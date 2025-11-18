@@ -1,6 +1,6 @@
 # Skills Plugin & Marketplace
 
-A comprehensive plugin and marketplace for Claude Code containing 19 custom skills across engineering, product management, design, content, trading, database, QA, and educational domains.
+A comprehensive plugin and marketplace for Claude Code containing 21 custom skills across engineering, product management, design, content, trading, database, QA, educational, and AI architecture domains.
 
 ## Overview
 
@@ -10,7 +10,11 @@ This repository provides Claude Code with specialized knowledge and workflows th
 
 ## Skills Index
 
-Quick navigation to all 19 skills organized by category:
+Quick navigation to all 21 skills organized by category:
+
+### AI & Architecture (2 skills)
+- [anthropic-architect](#anthropic-architect) - Determine the best Anthropic architecture for your project
+- [anthropic-prompt-engineer](#anthropic-prompt-engineer) - Master Anthropic's prompt engineering techniques
 
 ### Engineering (5 skills)
 - [openai-prompt-engineer](#openai-prompt-engineer) - Generate and improve prompts using best practices for OpenAI GPT-5
@@ -52,6 +56,175 @@ Quick navigation to all 19 skills organized by category:
 ---
 
 ## Skills
+
+### AI & Architecture Skills
+
+#### anthropic-architect
+
+**Determine the best Anthropic architecture for your project.** Analyze requirements and receive tailored recommendations on the optimal architecture using Skills, Agents, Subagents, Prompts, and SDK primitives based on proven decision rubrics and 2025 best practices.
+
+**Key features:**
+- Analyze project requirements and complexity
+- Recommend optimal architecture (Skills vs Agents vs Prompts vs SDK)
+- Apply comprehensive decision rubrics
+- Progressive disclosure design guidance
+- Security and performance best practices
+- Real-world architectural patterns
+- Cost optimization strategies
+
+**Usage:**
+- "Using anthropic-architect, determine the best architecture for my code review system"
+- "Help me choose between Skills and Agents for this workflow"
+- "Analyze my project and recommend the right Anthropic primitives"
+- "What's the best architecture for automated testing?"
+
+**The Four Anthropic Primitives:**
+- **Skills** - Reusable domain expertise with progressive disclosure
+- **Agents/Subagents** - Autonomous task handlers with isolated contexts
+- **Direct Prompts** - Simple, clear instructions for straightforward tasks
+- **SDK Primitives** - Custom workflows and system integrations
+
+**Decision Framework:**
+```
+Task Complexity:
+  Low (1-3) → Direct Prompts
+  Medium (4-6) → Skills
+  High (7-9) → Agents/Subagents
+  Custom (10) → SDK Primitives
+
+Plus evaluation of:
+- Reusability requirements
+- Context management needs
+- Security & control requirements
+- Performance needs
+- Maintenance burden
+- Time to market
+```
+
+**Reference materials:**
+- `decision_rubric.md` - Comprehensive 7-dimension decision framework
+- `architectural_patterns.md` - 14 proven architecture patterns
+- `best_practices.md` - 2025 Anthropic best practices (progressive disclosure, context management, security)
+- `use_case_examples.md` - Real-world architectures for common use cases
+
+**Perfect for:**
+- Choosing the right Anthropic primitives for your project
+- Designing scalable, maintainable AI architectures
+- Optimizing context usage and costs
+- Following 2025 best practices
+- Avoiding common anti-patterns
+- Learning when to use Skills vs Agents vs Prompts
+- Building production-ready AI systems
+
+**Example Recommendations:**
+
+**Use Case: Code Review System**
+```
+Recommended: Skills + Direct Prompts
+Why: Reusable standards (Skills), simple workflow (Prompts)
+Pattern: Load code-review-expert skill, review PRs with prompts
+```
+
+**Use Case: Full-Stack Feature**
+```
+Recommended: Specialist Agents + Skills
+Why: Complex multi-layer work, parallel execution, specialized expertise
+Pattern: Frontend/Backend/DevOps agents each load relevant skills
+```
+
+**Use Case: Simple Bug Fix**
+```
+Recommended: Direct Prompt
+Why: One-time task, minimal complexity, no reusability needed
+Pattern: Clear instruction to Claude
+```
+
+[View anthropic-architect skill →](./skills/anthropic-architect)
+
+---
+
+#### anthropic-prompt-engineer
+
+**Master Anthropic's prompt engineering techniques for Claude AI models.** Generate new prompts from scratch or improve existing ones using best practices, XML structuring, chain-of-thought reasoning, and progressive disclosure patterns optimized for Claude 4.x.
+
+**Key features:**
+- Generate effective prompts from requirements
+- Improve existing prompts with proven techniques
+- Claude-specific optimizations (XML tags, thinking, prefilling)
+- Apply core techniques: clear instructions, few-shot examples, role assignment
+- Advanced patterns: progressive disclosure, chain-of-thought, structured output
+- Avoid common mistakes and hallucinations
+- Production-ready prompt templates
+
+**Usage:**
+- "Using anthropic-prompt-engineer, create a prompt for extracting structured data"
+- "Improve this prompt using Anthropic best practices"
+- "Generate a Claude-optimized prompt for code analysis"
+- "Debug why this prompt gives inconsistent results"
+
+**Core Anthropic Techniques:**
+- **XML Tags** - Structure prompts with semantic tags like `<instructions>`, `<example>`, `<context>`
+- **Chain of Thought** - Ask Claude to think step-by-step for complex reasoning
+- **Prefilling** - Start Claude's response to guide format and style
+- **Few-Shot Examples** - Provide 2-5 diverse examples showing desired pattern
+- **Progressive Disclosure** - Load context incrementally to optimize token usage
+- **Clear Instructions** - Claude 4.x excels with explicit, unambiguous direction
+
+**Reference materials:**
+- `core_techniques.md` - Essential Anthropic techniques with examples
+- `advanced_techniques.md` - Advanced optimization methods
+- `common_mistakes.md` - Pitfalls to avoid
+- `claude_4_best_practices.md` - Claude 4.x specific guidance
+- `prompt_templates.md` - Ready-to-use production templates
+
+**Perfect for:**
+- Creating consistent, high-quality prompts for Claude
+- Learning Anthropic-specific techniques (vs OpenAI/GPT patterns)
+- Optimizing prompts for Claude 4.x models
+- Building prompt libraries for your team
+- Reducing hallucinations and errors
+- Achieving first-try success more often
+- Production prompt engineering
+
+**Example Improvements:**
+
+Before:
+```
+"Analyze this code"
+```
+
+After (Anthropic-optimized):
+```
+<instructions>
+Analyze the code below for:
+1. Security vulnerabilities
+2. Performance issues
+3. Code quality concerns
+
+For each issue found:
+- Specify exact line number
+- Explain the problem
+- Provide specific fix recommendation
+</instructions>
+
+<code>
+[code here]
+</code>
+
+<output_format>
+Return JSON array:
+[{
+  "type": "security|performance|quality",
+  "line": number,
+  "issue": "description",
+  "fix": "recommendation"
+}]
+</output_format>
+```
+
+[View anthropic-prompt-engineer skill →](./skills/anthropic-prompt-engineer)
+
+---
 
 ### Engineering Skills
 

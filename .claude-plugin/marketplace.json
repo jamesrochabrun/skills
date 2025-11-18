@@ -1,8 +1,8 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "skills-marketplace",
-  "version": "1.0.0",
-  "description": "A comprehensive collection of 21 custom skills for Claude Code covering engineering, product management, design, content, trading, database, QA, educational, and AI prompt engineering domains",
+  "version": "2.0.0",
+  "description": "A comprehensive collection of 21 custom skills for Claude Code covering engineering, product management, design, content, trading, database, QA, educational, and AI prompt engineering domains. Install individual skills or the complete collection.",
   "owner": {
     "name": "James Rochabrun",
     "email": "jamesrochabrun@gmail.com"
@@ -36,6 +36,153 @@
         "./skills/technical-launch-planner",
         "./skills/trading-plan-generator"
       ]
+    },
+    {
+      "name": "anthropic-architect",
+      "description": "Determine the best Anthropic architecture for your project by analyzing requirements and recommending the optimal combination of Skills, Agents, Prompts, and SDK primitives.",
+      "source": "./",
+      "strict": true,
+      "skills": ["./skills/anthropic-architect"]
+    },
+    {
+      "name": "anthropic-prompt-engineer",
+      "description": "Master Anthropic's prompt engineering techniques to generate new prompts or improve existing ones using best practices for Claude AI models.",
+      "source": "./",
+      "strict": true,
+      "skills": ["./skills/anthropic-prompt-engineer"]
+    },
+    {
+      "name": "apple-hig-designer",
+      "description": "Design iOS apps following Apple's Human Interface Guidelines. Generate native components, validate designs, and ensure accessibility compliance for iPhone, iPad, and Apple Watch.",
+      "source": "./",
+      "strict": true,
+      "skills": ["./skills/apple-hig-designer"]
+    },
+    {
+      "name": "book-illustrator",
+      "description": "Expert children's book illustrator guide with 2024-2025 best practices, focusing on age-appropriate styles, color theory, character design, and visual storytelling for kids books that captivate young readers.",
+      "source": "./",
+      "strict": true,
+      "skills": ["./skills/book-illustrator"]
+    },
+    {
+      "name": "content-brief-generator",
+      "description": "Generate comprehensive content briefs for writers, ensuring clarity, alignment, and strategic content creation across all formats.",
+      "source": "./",
+      "strict": true,
+      "skills": ["./skills/content-brief-generator"]
+    },
+    {
+      "name": "design-brief-generator",
+      "description": "Generate comprehensive design briefs for design projects. Use this skill when designers ask to 'create a design brief', 'structure a design project', 'define design requirements', or need help planning design work.",
+      "source": "./",
+      "strict": true,
+      "skills": ["./skills/design-brief-generator"]
+    },
+    {
+      "name": "engineer-expertise-extractor",
+      "description": "Research and extract an engineer's coding style, patterns, and best practices from their GitHub contributions. Creates structured knowledge base for replicating their expertise.",
+      "source": "./",
+      "strict": true,
+      "skills": ["./skills/engineer-expertise-extractor"]
+    },
+    {
+      "name": "engineer-skill-creator",
+      "description": "Transform extracted engineer expertise into an actionable skill with progressive disclosure, allowing agents to find and apply relevant patterns for specific tasks.",
+      "source": "./",
+      "strict": true,
+      "skills": ["./skills/engineer-skill-creator"]
+    },
+    {
+      "name": "frontend-designer",
+      "description": "Build accessible, responsive, and performant frontend components with design system best practices, modern CSS, and framework-agnostic patterns.",
+      "source": "./",
+      "strict": true,
+      "skills": ["./skills/frontend-designer"]
+    },
+    {
+      "name": "git-worktrees",
+      "description": "Manage Git worktrees for parallel Claude Code development. Use this skill when engineers ask to 'create a worktree', 'run parallel Claude sessions', 'work on multiple features simultaneously', or need help with worktree management.",
+      "source": "./",
+      "strict": true,
+      "skills": ["./skills/git-worktrees"]
+    },
+    {
+      "name": "kids-book-writer",
+      "description": "Expert children's book writer creating delightful, engaging books for ages 2-9. Specializes in rhyming books, stories, songs with proper values, educational content, and age-appropriate language. Crafts books that captivate young readers while teaching important life lessons.",
+      "source": "./",
+      "strict": true,
+      "skills": ["./skills/kids-book-writer"]
+    },
+    {
+      "name": "leetcode-teacher",
+      "description": "Interactive LeetCode-style teacher for technical interview preparation. Generates coding playgrounds with real product challenges, teaches patterns and techniques, supports Python/TypeScript/Kotlin/Swift, and provides progressive difficulty training for data structures and algorithms.",
+      "source": "./",
+      "strict": true,
+      "skills": ["./skills/leetcode-teacher"]
+    },
+    {
+      "name": "llm-router",
+      "description": "This skill should be used when users want to route LLM requests to different AI providers (OpenAI, Grok/xAI, Groq, DeepSeek, OpenRouter) using SwiftOpenAI-CLI. Use this skill when users ask to 'use grok', 'ask grok', 'use groq', 'ask deepseek', or any similar request to query a specific LLM provider in agent mode.",
+      "source": "./",
+      "strict": true,
+      "skills": ["./skills/llm-router"]
+    },
+    {
+      "name": "math-teacher",
+      "description": "Interactive math teacher that instantly generates playful, gamified learning experiences. Creates visual playgrounds, interactive artifacts, and engaging games for kids and adults to learn math concepts from basic arithmetic to advanced calculus.",
+      "source": "./",
+      "strict": true,
+      "skills": ["./skills/math-teacher"]
+    },
+    {
+      "name": "openai-prompt-engineer",
+      "description": "Generate and improve prompts using best practices for OpenAI GPT-5 and other LLMs. Apply advanced techniques like chain-of-thought, few-shot prompting, and progressive disclosure.",
+      "source": "./",
+      "strict": true,
+      "skills": ["./skills/openai-prompt-engineer"]
+    },
+    {
+      "name": "prd-generator",
+      "description": "Generate comprehensive Product Requirements Documents (PRDs) for product managers. Use this skill when users ask to 'create a PRD', 'write product requirements', 'document a feature', or need help structuring product specifications.",
+      "source": "./",
+      "strict": true,
+      "skills": ["./skills/prd-generator"]
+    },
+    {
+      "name": "qa-test-planner",
+      "description": "Generate comprehensive test plans, manual test cases, regression test suites, and bug reports for QA engineers. Includes Figma MCP integration for design validation.",
+      "source": "./",
+      "strict": true,
+      "skills": ["./skills/qa-test-planner"]
+    },
+    {
+      "name": "query-expert",
+      "description": "Master SQL and database queries across multiple systems. Generate optimized queries, analyze performance, design indexes, and troubleshoot slow queries for PostgreSQL, MySQL, MongoDB, and more.",
+      "source": "./",
+      "strict": true,
+      "skills": ["./skills/query-expert"]
+    },
+    {
+      "name": "reading-teacher",
+      "description": "Interactive reading teacher that instantly generates playful, engaging learning experiences for children ages 1-10. Creates visual playgrounds, phonics games, and interactive stories to build reading skills from letter recognition to comprehension.",
+      "source": "./",
+      "strict": true,
+      "skills": ["./skills/reading-teacher"]
+    },
+    {
+      "name": "technical-launch-planner",
+      "description": "Plan and execute technical product launches for developer tools, APIs, and technical products. Use this skill when technical PMMs need to 'plan a launch', 'create a launch strategy', 'coordinate a product release', or 'prepare for GA/beta launch'.",
+      "source": "./",
+      "strict": true,
+      "skills": ["./skills/technical-launch-planner"]
+    },
+    {
+      "name": "trading-plan-generator",
+      "description": "Generate comprehensive trading plans with risk management, position sizing, entry/exit strategies, and performance tracking to trade with discipline and consistency.",
+      "source": "./",
+      "strict": true,
+      "skills": ["./skills/trading-plan-generator"]
     }
   ]
 }

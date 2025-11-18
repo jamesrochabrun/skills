@@ -1,6 +1,6 @@
 # Skills Plugin & Marketplace
 
-A comprehensive plugin and marketplace for Claude Code containing 18 custom skills across engineering, product management, design, content, trading, database, QA, and educational domains.
+A comprehensive plugin and marketplace for Claude Code containing 19 custom skills across engineering, product management, design, content, trading, database, QA, and educational domains.
 
 ## Overview
 
@@ -10,9 +10,10 @@ This repository provides Claude Code with specialized knowledge and workflows th
 
 ## Skills Index
 
-Quick navigation to all 18 skills organized by category:
+Quick navigation to all 19 skills organized by category:
 
-### Engineering (4 skills)
+### Engineering (5 skills)
+- [prompt-engineer](#prompt-engineer) - Generate and improve prompts using best practices for GPT-5, Claude, and LLMs
 - [git-worktrees](#git-worktrees) - Manage Git worktrees for parallel development
 - [llm-router](#llm-router) - Route requests to different LLM providers
 - [engineer-expertise-extractor](#engineer-expertise-extractor) - Extract engineering expertise from GitHub
@@ -53,6 +54,66 @@ Quick navigation to all 18 skills organized by category:
 ## Skills
 
 ### Engineering Skills
+
+#### prompt-engineer
+
+**Generate and improve prompts using cutting-edge techniques for GPT-5, Claude, and other LLMs.** Apply advanced patterns like chain-of-thought, few-shot prompting, structured output, and progressive disclosure to create effective, consistent prompts.
+
+**Key features:**
+- Generate new prompts from specifications
+- Improve existing prompts with proven techniques
+- Model-specific optimizations (GPT-5 vs Claude)
+- Advanced patterns: Chain-of-Thought, Few-Shot, XML structuring
+- Prompt quality analysis and debugging
+- Comprehensive best practices library
+
+**Usage:**
+- "Using prompt-engineer, create a prompt for code review"
+- "Improve this prompt for better results"
+- "Generate a GPT-5 optimized prompt for data analysis"
+- "Analyze this prompt and suggest improvements"
+
+**Techniques covered:**
+- **GPT-5 specific**: Structured prompting (role+task+constraints), reasoning effort control, agentic behavior calibration, verbosity management
+- **Claude specific**: XML tag structuring, step-by-step thinking, progressive disclosure, long-context optimization
+- **Universal**: Chain-of-thought prompting, few-shot learning, zero-shot prompting, self-consistency, role-based prompting
+
+**Reference materials:**
+- `gpt5_techniques.md` - GPT-5 specific best practices and patterns
+- `claude_techniques.md` - Claude/Anthropic optimization strategies
+- `prompt_patterns.md` - Reusable templates for common tasks
+- `optimization_strategies.md` - Systematic prompt improvement framework
+
+**Perfect for:**
+- Creating consistent, high-quality prompts
+- Optimizing prompts for specific models
+- Learning advanced prompting techniques
+- Reducing API costs through better prompts
+- Achieving first-try success more often
+- Building prompt libraries for your team
+
+**Example improvements:**
+
+Before:
+```
+"Write code for authentication"
+```
+
+After (GPT-5 optimized):
+```
+ROLE: Senior TypeScript developer
+TASK: Implement JWT-based authentication service
+REQUIREMENTS:
+- TypeScript with strict mode
+- Include refresh token rotation
+- Comprehensive error handling
+- Unit tests with 80%+ coverage
+OUTPUT: Complete implementation with tests and usage example
+```
+
+[View prompt-engineer skill →](./skills/prompt-engineer)
+
+---
 
 #### git-worktrees
 

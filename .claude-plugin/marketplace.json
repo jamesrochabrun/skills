@@ -2,7 +2,7 @@
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "skills-marketplace",
   "version": "1.0.0",
-  "description": "A comprehensive collection of 20 custom skills for Claude Code covering engineering, product management, design, content, trading, database, QA, educational, and AI prompt engineering domains",
+  "description": "A comprehensive collection of 21 custom skills for Claude Code covering engineering, product management, design, content, trading, database, QA, educational, and AI prompt engineering domains",
   "owner": {
     "name": "James Rochabrun",
     "email": "jamesrochabrun@gmail.com"
@@ -10,10 +10,11 @@
   "plugins": [
     {
       "name": "all-skills",
-      "description": "Complete collection of all 20 skills including engineering, product, design, content, finance, database, QA, educational, and AI prompt engineering skills",
+      "description": "Complete collection of all 21 skills including engineering, product, design, content, finance, database, QA, educational, and AI prompt engineering skills",
       "source": "./",
       "strict": false,
       "skills": [
+        "./skills/anthropic-architect",
         "./skills/anthropic-prompt-engineer",
         "./skills/apple-hig-designer",
         "./skills/book-illustrator",

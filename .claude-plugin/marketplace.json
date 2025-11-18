@@ -9,130 +9,30 @@
   },
   "plugins": [
     {
-      "name": "git-worktrees",
-      "description": "Manage Git worktrees for parallel Claude Code development",
-      "source": "./skills/git-worktrees",
-      "category": "engineering",
-      "tags": ["git", "workflow", "development"]
-    },
-    {
-      "name": "llm-router",
-      "description": "Route AI requests to different LLM providers (OpenAI, Grok, Groq, DeepSeek, OpenRouter)",
-      "source": "./skills/llm-router",
-      "category": "engineering",
-      "tags": ["llm", "ai", "routing"]
-    },
-    {
-      "name": "engineer-expertise-extractor",
-      "description": "Extract and replicate engineering expertise from GitHub contributions",
-      "source": "./skills/engineer-expertise-extractor",
-      "category": "engineering",
-      "tags": ["github", "expertise", "knowledge-extraction"]
-    },
-    {
-      "name": "engineer-skill-creator",
-      "description": "Transform extracted expertise into actionable skills with progressive disclosure",
-      "source": "./skills/engineer-skill-creator",
-      "category": "engineering",
-      "tags": ["skills", "knowledge-management", "expertise"]
-    },
-    {
-      "name": "prd-generator",
-      "description": "Generate comprehensive Product Requirements Documents (PRDs)",
-      "source": "./skills/prd-generator",
-      "category": "product-management",
-      "tags": ["prd", "product", "requirements"]
-    },
-    {
-      "name": "technical-launch-planner",
-      "description": "Plan and execute technical product launches for developer tools and APIs",
-      "source": "./skills/technical-launch-planner",
-      "category": "product-marketing",
-      "tags": ["launch", "marketing", "developer-tools"]
-    },
-    {
-      "name": "design-brief-generator",
-      "description": "Generate comprehensive design briefs with accessibility guidelines",
-      "source": "./skills/design-brief-generator",
-      "category": "design",
-      "tags": ["design", "brief", "accessibility"]
-    },
-    {
-      "name": "frontend-designer",
-      "description": "Build accessible, responsive, high-performance user interfaces",
-      "source": "./skills/frontend-designer",
-      "category": "design",
-      "tags": ["frontend", "ui", "accessibility", "design-system"]
-    },
-    {
-      "name": "apple-hig-designer",
-      "description": "Design native iOS apps following Apple's Human Interface Guidelines",
-      "source": "./skills/apple-hig-designer",
-      "category": "design",
-      "tags": ["ios", "apple", "hig", "swiftui"]
-    },
-    {
-      "name": "content-brief-generator",
-      "description": "Generate comprehensive content briefs with SEO optimization",
-      "source": "./skills/content-brief-generator",
-      "category": "content",
-      "tags": ["content", "seo", "writing"]
-    },
-    {
-      "name": "trading-plan-generator",
-      "description": "Generate trading plans with risk management and position sizing",
-      "source": "./skills/trading-plan-generator",
-      "category": "finance",
-      "tags": ["trading", "finance", "risk-management"]
-    },
-    {
-      "name": "query-expert",
-      "description": "Master SQL and database queries across multiple systems",
-      "source": "./skills/query-expert",
-      "category": "database",
-      "tags": ["sql", "database", "optimization", "queries"]
-    },
-    {
-      "name": "qa-test-planner",
-      "description": "Generate comprehensive test plans and bug reports with Figma integration",
-      "source": "./skills/qa-test-planner",
-      "category": "testing",
-      "tags": ["qa", "testing", "figma", "bug-reports"]
-    },
-    {
-      "name": "math-teacher",
-      "description": "Interactive math teacher with gamified learning experiences",
-      "source": "./skills/math-teacher",
-      "category": "education",
-      "tags": ["math", "education", "interactive", "gamification"]
-    },
-    {
-      "name": "reading-teacher",
-      "description": "Interactive reading teacher for children ages 1-10",
-      "source": "./skills/reading-teacher",
-      "category": "education",
-      "tags": ["reading", "education", "children", "phonics"]
-    },
-    {
-      "name": "leetcode-teacher",
-      "description": "Interactive LeetCode-style teacher for technical interviews",
-      "source": "./skills/leetcode-teacher",
-      "category": "education",
-      "tags": ["leetcode", "interviews", "coding", "algorithms"]
-    },
-    {
-      "name": "kids-book-writer",
-      "description": "Expert children's book writer creating delightful, engaging books for ages 2-9 with rhyming, stories, songs, and educational content",
-      "source": "./skills/kids-book-writer",
-      "category": "content",
-      "tags": ["writing", "children", "books", "education", "storytelling"]
-    },
-    {
-      "name": "book-illustrator",
-      "description": "Expert children's book illustrator guide with age-appropriate styles, color theory, character design, and visual storytelling",
-      "source": "./skills/book-illustrator",
-      "category": "design",
-      "tags": ["illustration", "children", "books", "visual-design", "art"]
+      "name": "all-skills",
+      "description": "Complete collection of all 18 skills including engineering, product, design, content, finance, database, QA, and educational skills",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/git-worktrees",
+        "./skills/llm-router",
+        "./skills/engineer-expertise-extractor",
+        "./skills/engineer-skill-creator",
+        "./skills/prd-generator",
+        "./skills/technical-launch-planner",
+        "./skills/design-brief-generator",
+        "./skills/frontend-designer",
+        "./skills/apple-hig-designer",
+        "./skills/book-illustrator",
+        "./skills/content-brief-generator",
+        "./skills/kids-book-writer",
+        "./skills/trading-plan-generator",
+        "./skills/query-expert",
+        "./skills/qa-test-planner",
+        "./skills/math-teacher",
+        "./skills/reading-teacher",
+        "./skills/leetcode-teacher"
+      ]
     }
   ]
 }

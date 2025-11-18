@@ -12,7 +12,7 @@
       "name": "all-skills",
       "description": "Complete collection of all 21 skills including engineering, product, design, content, finance, database, QA, educational, and AI prompt engineering skills",
       "source": "./",
-      "strict": false,
+      "strict": true,
       "skills": [
         "./skills/anthropic-architect",
         "./skills/anthropic-prompt-engineer",

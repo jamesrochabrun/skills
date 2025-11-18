@@ -1,6 +1,10 @@
-# Claude Code Skills
+# Skills Plugin
 
-A collection of custom skills for Claude Code.
+A comprehensive plugin for Claude Code containing a collection of custom skills across engineering, product management, design, content, trading, database, QA, and educational domains.
+
+## Overview
+
+This plugin provides Claude Code with specialized knowledge and workflows through a curated collection of skills. Each skill includes interactive scripts, comprehensive reference materials, and best practices for specific domains.
 
 ## Skills
 
@@ -37,7 +41,7 @@ Manage Git worktrees for parallel Claude Code development. Run multiple Claude C
 - Code review without context switching
 - Experimentation without breaking main work
 
-[View git-worktrees skill →](./git-worktrees)
+[View git-worktrees skill →](./skills/git-worktrees)
 
 ---
 
@@ -57,7 +61,7 @@ Route AI requests to different LLM providers using SwiftOpenAI-CLI.
 - "Ask deepseek to solve this problem"
 - "Use groq for fast code generation"
 
-[View llm-router skill →](./llm-router)
+[View llm-router skill →](./skills/llm-router)
 
 ---
 
@@ -118,7 +122,7 @@ engineer_profiles/
 
 **Requirements:** GitHub CLI (`gh`) installed and authenticated
 
-[View engineer-expertise-extractor skill →](./engineer-expertise-extractor)
+[View engineer-expertise-extractor skill →](./skills/engineer-expertise-extractor)
 
 ---
 
@@ -195,7 +199,7 @@ their standards"
 2. **Create:** `engineer-skill-creator` → Transforms into skill
 3. **Use:** Reference skill in agent prompts → Get expert guidance
 
-[View engineer-skill-creator skill →](./engineer-skill-creator)
+[View engineer-skill-creator skill →](./skills/engineer-skill-creator)
 
 ---
 
@@ -226,7 +230,7 @@ Generate comprehensive Product Requirements Documents (PRDs) for product manager
 - Interactive generation script
 - Validation script for quality checking
 
-[View prd-generator skill →](./prd-generator)
+[View prd-generator skill →](./skills/prd-generator)
 
 ---
 
@@ -265,7 +269,7 @@ Plan and execute technical product launches for developer tools, APIs, and techn
 - Technical infrastructure products
 - B2D (Business-to-Developer) products
 
-[View technical-launch-planner skill →](./technical-launch-planner)
+[View technical-launch-planner skill →](./skills/technical-launch-planner)
 
 ---
 
@@ -305,7 +309,7 @@ Generate comprehensive design briefs for design projects, ensuring alignment and
 - Redesign initiatives
 - Stakeholder alignment
 
-[View design-brief-generator skill →](./design-brief-generator)
+[View design-brief-generator skill →](./skills/design-brief-generator)
 
 ---
 
@@ -385,7 +389,7 @@ frontend-designer patterns"
 frontend-designer skill"
 ```
 
-[View frontend-designer skill →](./frontend-designer)
+[View frontend-designer skill →](./skills/frontend-designer)
 
 ---
 
@@ -459,7 +463,7 @@ with proper large titles and accessibility support"
 "Audit this SwiftUI view for VoiceOver and Dynamic Type compliance"
 ```
 
-[View apple-hig-designer skill →](./apple-hig-designer)
+[View apple-hig-designer skill →](./skills/apple-hig-designer)
 
 ---
 
@@ -499,7 +503,7 @@ Generate comprehensive content briefs for writers, ensuring strategic, SEO-optim
 - Content strategists
 - SEO specialists
 
-[View content-brief-generator skill →](./content-brief-generator)
+[View content-brief-generator skill →](./skills/content-brief-generator)
 
 ---
 
@@ -542,7 +546,7 @@ Generate comprehensive trading plans with risk management, position sizing, and 
 
 **⚠️ Important:** This provides frameworks, not financial advice. Trading involves substantial risk of loss.
 
-[View trading-plan-generator skill →](./trading-plan-generator)
+[View trading-plan-generator skill →](./skills/trading-plan-generator)
 
 ---
 
@@ -623,7 +627,7 @@ SELECT * FROM orders WHERE YEAR(created_at) = 2024"
 how to optimize the query"
 ```
 
-[View query-expert skill →](./query-expert)
+[View query-expert skill →](./skills/query-expert)
 
 ---
 
@@ -666,7 +670,7 @@ Generate comprehensive test plans, manual test cases, regression suites, and bug
 
 **🎨 Figma MCP:** When configured, enables design-implementation validation and visual testing.
 
-[View qa-test-planner skill →](./qa-test-planner)
+[View qa-test-planner skill →](./skills/qa-test-planner)
 
 ---
 
@@ -728,7 +732,7 @@ Generate comprehensive test plans, manual test cases, regression suites, and bug
 "Generate a fun math game for practicing multiplication"
 ```
 
-[View math-teacher skill →](./math-teacher)
+[View math-teacher skill →](./skills/math-teacher)
 
 ---
 
@@ -788,7 +792,7 @@ Generate comprehensive test plans, manual test cases, regression suites, and bug
 "Generate an interactive story for reading comprehension"
 ```
 
-[View reading-teacher skill →](./reading-teacher)
+[View reading-teacher skill →](./skills/reading-teacher)
 
 ---
 
@@ -848,28 +852,42 @@ Generate comprehensive test plans, manual test cases, regression suites, and bug
 "Show me sliding window pattern with Netflix recommendations"
 ```
 
-[View leetcode-teacher skill →](./leetcode-teacher)
+[View leetcode-teacher skill →](./skills/leetcode-teacher)
 
 ---
 
 ## Installation
 
-### Install All Skills
+### Install the Plugin
 
-Clone this repository to your Claude Code skills directory:
-
-```bash
-git clone https://github.com/jamesrochabrun/skills.git ~/.claude/skills/custom
-```
-
-### Install Individual Skills
-
-Download the specific skill directory you want and place it in `~/.claude/skills/`:
+Clone this plugin to your Claude Code plugins directory:
 
 ```bash
-# Example: Install llm-router
-cp -r llm-router ~/.claude/skills/
+# Clone to plugins directory
+git clone https://github.com/jamesrochabrun/skills.git ~/.claude/plugins/skills
 ```
+
+### Plugin Structure
+
+The plugin follows the standard Claude Code plugin architecture:
+
+```
+skills/
+├── .claude-plugin/
+│   └── plugin.json          # Plugin metadata
+├── skills/                   # All skills collection
+│   ├── git-worktrees/
+│   ├── llm-router/
+│   ├── frontend-designer/
+│   ├── math-teacher/
+│   └── ... (16 total skills)
+├── README.md                 # This file
+└── LICENSE
+```
+
+### Using Individual Skills
+
+Each skill in the `skills/` directory can be referenced independently. Skills are automatically available when the plugin is installed.
 
 ## Requirements
 
@@ -884,8 +902,24 @@ Feel free to contribute additional skills or improvements via pull requests.
 
 MIT License - See individual skills for their specific licenses.
 
+## Plugin Architecture
+
+This plugin follows the official Claude Code plugin structure, making it easy to:
+- Install and manage as a single unit
+- Share across projects and teams
+- Version control with metadata
+- Integrate with Claude Code's plugin system
+
+For more information about Claude Code plugins, visit the [official documentation](https://github.com/anthropics/claude-code/tree/main/plugins).
+
 ## Credits
 
 Created by [@jamesrochabrun](https://github.com/jamesrochabrun)
 
 Built for use with [Claude Code](https://claude.ai/code) by Anthropic.
+
+## Version
+
+**Current Version:** 1.0.0
+
+See [plugin.json](./.claude-plugin/plugin.json) for complete metadata.

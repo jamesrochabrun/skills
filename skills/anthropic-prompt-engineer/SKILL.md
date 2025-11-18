@@ -1,9 +1,9 @@
 ---
-name: prompt-engineer
+name: anthropic-prompt-engineer
 description: Master Anthropic's prompt engineering techniques to generate new prompts or improve existing ones using best practices for Claude AI models.
 ---
 
-# Prompt Engineer
+# Anthropic Prompt Engineer
 
 Master the art and science of prompt engineering with Anthropic's proven techniques. Generate new prompts from scratch or improve existing ones using best practices for Claude AI models (Claude 4.x, Sonnet, Opus, Haiku).
 
@@ -40,7 +40,7 @@ Helps you create and optimize prompts for Claude AI using Anthropic's official t
 ### Generate a New Prompt
 
 ```
-Using the prompt-engineer skill, create a prompt that:
+Using the anthropic-prompt-engineer skill, create a prompt that:
 - Extracts structured data from customer emails
 - Returns JSON format
 - Handles missing information gracefully
@@ -50,7 +50,7 @@ Using the prompt-engineer skill, create a prompt that:
 ### Improve an Existing Prompt
 
 ```
-Using the prompt-engineer skill, improve this prompt:
+Using the anthropic-prompt-engineer skill, improve this prompt:
 
 "Analyze this code and tell me if there are bugs"
 

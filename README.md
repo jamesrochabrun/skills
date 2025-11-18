@@ -13,7 +13,7 @@ This repository provides Claude Code with specialized knowledge and workflows th
 Quick navigation to all 19 skills organized by category:
 
 ### Engineering (5 skills)
-- [prompt-engineer](#prompt-engineer) - Generate and improve prompts using best practices for GPT-5, Claude, and LLMs
+- [openai-prompt-engineer](#openai-prompt-engineer) - Generate and improve prompts using best practices for OpenAI GPT-5
 - [git-worktrees](#git-worktrees) - Manage Git worktrees for parallel development
 - [llm-router](#llm-router) - Route requests to different LLM providers
 - [engineer-expertise-extractor](#engineer-expertise-extractor) - Extract engineering expertise from GitHub
@@ -55,9 +55,9 @@ Quick navigation to all 19 skills organized by category:
 
 ### Engineering Skills
 
-#### prompt-engineer
+#### openai-prompt-engineer
 
-**Generate and improve prompts using cutting-edge techniques for GPT-5, Claude, and other LLMs.** Apply advanced patterns like chain-of-thought, few-shot prompting, structured output, and progressive disclosure to create effective, consistent prompts.
+**Generate and improve prompts using cutting-edge techniques for OpenAI GPT-5 and other LLMs.** Apply advanced patterns like chain-of-thought, few-shot prompting, structured output, and progressive disclosure to create effective, consistent prompts.
 
 **Key features:**
 - Generate new prompts from specifications
@@ -68,7 +68,7 @@ Quick navigation to all 19 skills organized by category:
 - Comprehensive best practices library
 
 **Usage:**
-- "Using prompt-engineer, create a prompt for code review"
+- "Using openai-prompt-engineer, create a prompt for code review"
 - "Improve this prompt for better results"
 - "Generate a GPT-5 optimized prompt for data analysis"
 - "Analyze this prompt and suggest improvements"
@@ -111,7 +111,7 @@ REQUIREMENTS:
 OUTPUT: Complete implementation with tests and usage example
 ```
 
-[View prompt-engineer skill →](./skills/prompt-engineer)
+[View openai-prompt-engineer skill →](./skills/openai-prompt-engineer)
 
 ---
 

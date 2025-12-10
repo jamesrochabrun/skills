@@ -15,6 +15,56 @@ Modern SwiftUI introduces view modifiers that apply custom Metal fragment shader
 - `.distortionEffect()` - Displace pixel positions (warping, ripples)
 - `.layerEffect()` - Full composite effects with original layer access
 
+### How Shaders Work in SwiftUI
+
+Shaders are small programs that run on your device's GPU. SwiftUI uses shaders internally to implement many visual effects like Mesh Gradients. When you apply a shader effect to a view using modifiers like `.layerEffect()`, SwiftUI calls your shader function for every single pixel of your view.
+
+```swift
+// Instantiate a shader from ShaderLibrary
+let shader = ShaderLibrary.ripple(
+    .float(time),
+    .float2(origin),
+    .color(.pink)
+)
+
+// Apply to a view
+myView.layerEffect(shader, maxSampleOffset: CGSize(width: 100, height: 100))
+```
+
+### Metal Shading Language Basics
+
+Shaders are written in Metal Shading Language (not Swift). The shader function name matches the invocation on `ShaderLibrary`.
+
+```metal
+// Shaders.metal
+#include <metal_stdlib>
+#include <SwiftUI/SwiftUI_Metal.h>
+using namespace metal;
+
+[[stitchable]] half4 myEffect(
+    float2 position,      // Current pixel's location
+    SwiftUI::Layer layer, // View's content (for sampling)
+    half4 color           // SwiftUI Color converted to half4
+) {
+    // position: the pixel being processed
+    // layer.sample(pos): get color at position (must stay within maxSampleOffset)
+    // color: passed-in color parameter
+
+    return layer.sample(position);
+}
+```
+
+### Metal Vector Types
+
+Metal uses vector types extensively:
+
+- `float2` - Two-component 32-bit float (2D points, dimensions)
+- `half4` - Four-component 16-bit float (RGBA colors)
+- `float3` - Three-component 32-bit float (RGB, 3D positions)
+- `float4` - Four-component 32-bit float
+
+SwiftUI automatically converts types like `Color` to Metal representations (`half4`).
+
 ### Creating a Metal Shader
 
 #### 1. Add a Metal File
@@ -70,9 +120,6 @@ using namespace metal;
 import SwiftUI
 
 struct ShaderDemoView: View {
-    @State private var time: Float = 0
-    let timer = Timer.publish(every: 1/60, on: .main, in: .common).autoconnect()
-
     var body: some View {
         Image("photo")
             .resizable()
@@ -149,7 +196,7 @@ Displaces pixels to new positions. Returns the source position to sample from.
 
 #### layerEffect
 
-Full access to the rendered layer, enabling complex composite effects.
+Full access to the rendered layer, enabling complex composite effects. This is the most powerful effect type and effectively a superset of the other two.
 
 ```swift
 .layerEffect(
@@ -178,12 +225,401 @@ Full access to the rendered layer, enabling complex composite effects.
 }
 ```
 
-### Animated Shader Example
+## Complete Ripple Effect Example (WWDC 2024)
+
+This example from WWDC 2024 shows a touch-responsive ripple effect that spreads from the touch location.
+
+### Metal Shader
+
+```metal
+[[stitchable]] half4 ripple(
+    float2 position,
+    SwiftUI::Layer layer,
+    float2 origin,
+    float time,
+    float amplitude,
+    float frequency,
+    float decay,
+    float speed
+) {
+    // Calculate distance from touch origin
+    float distance = length(position - origin);
+
+    // Calculate ripple displacement
+    float rippleAmount = amplitude * sin(frequency * distance - speed * time);
+    rippleAmount *= exp(-decay * distance); // Decay with distance
+
+    // Calculate new sample position
+    float2 direction = normalize(position - origin);
+    float2 newPosition = position + direction * rippleAmount;
+
+    // Sample the layer at the distorted position
+    half4 color = layer.sample(newPosition);
+
+    // Optional: adjust brightness based on distortion strength
+    float brightness = 1.0 + rippleAmount * 0.02;
+    color.rgb *= brightness;
+
+    return color;
+}
+```
+
+### SwiftUI ViewModifier
+
+```swift
+struct RippleModifier: ViewModifier {
+    var origin: CGPoint
+    var elapsedTime: TimeInterval
+    var amplitude: Double = 12
+    var frequency: Double = 15
+    var decay: Double = 8
+    var speed: Double = 1200
+
+    func body(content: Content) -> some View {
+        content.layerEffect(
+            ShaderLibrary.ripple(
+                .float2(origin),
+                .float(elapsedTime),
+                .float(amplitude),
+                .float(frequency),
+                .float(decay),
+                .float(speed)
+            ),
+            maxSampleOffset: CGSize(width: 100, height: 100)
+        )
+    }
+}
+```
+
+### Animated Ripple Effect
+
+```swift
+struct RippleEffect: ViewModifier {
+    var origin: CGPoint
+    var trigger: Bool
+    var duration: TimeInterval = 1.5
+
+    func body(content: Content) -> some View {
+        content.keyframeAnimator(
+            initialValue: 0.0,
+            trigger: trigger
+        ) { view, elapsedTime in
+            view.modifier(RippleModifier(
+                origin: origin,
+                elapsedTime: elapsedTime
+            ))
+        } keyframes: { _ in
+            LinearKeyframe(duration, duration: duration)
+        }
+    }
+}
+
+extension View {
+    func rippleEffect(at origin: CGPoint, trigger: Bool) -> some View {
+        modifier(RippleEffect(origin: origin, trigger: trigger))
+    }
+}
+
+// Usage
+struct RippleDemo: View {
+    @State private var tapLocation: CGPoint = .zero
+    @State private var trigger = false
+
+    var body: some View {
+        Image("photo")
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .rippleEffect(at: tapLocation, trigger: trigger)
+            .onTapGesture { location in
+                tapLocation = location
+                trigger.toggle()
+            }
+    }
+}
+```
+
+### Debug UI for Shader Parameters
+
+Building great shader effects requires experimentation. Create debug UI to iterate quickly:
+
+```swift
+struct ShaderDebugView: View {
+    @State private var amplitude: Double = 12
+    @State private var frequency: Double = 15
+    @State private var decay: Double = 8
+    @State private var speed: Double = 1200
+    @State private var time: Double = 0
+
+    var body: some View {
+        VStack {
+            // Preview with scrubber
+            Image("photo")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .modifier(RippleModifier(
+                    origin: CGPoint(x: 150, y: 150),
+                    elapsedTime: time,
+                    amplitude: amplitude,
+                    frequency: frequency,
+                    decay: decay,
+                    speed: speed
+                ))
+
+            // Time scrubber
+            Slider(value: $time, in: 0...2)
+            Text("Time: \(time, specifier: "%.2f")")
+
+            // Parameter controls
+            Group {
+                Slider(value: $amplitude, in: 0...50)
+                Text("Amplitude: \(amplitude, specifier: "%.1f")")
+
+                Slider(value: $frequency, in: 0...50)
+                Text("Frequency: \(frequency, specifier: "%.1f")")
+
+                Slider(value: $decay, in: 0...20)
+                Text("Decay: \(decay, specifier: "%.1f")")
+
+                Slider(value: $speed, in: 0...3000)
+                Text("Speed: \(speed, specifier: "%.0f")")
+            }
+        }
+        .padding()
+    }
+}
+```
+
+## Scroll Effects with visualEffect
+
+The `visualEffect` modifier provides access to view geometry for position-based effects:
+
+```swift
+struct GroceryListView: View {
+    let items: [GroceryItem]
+
+    var body: some View {
+        ScrollView {
+            ForEach(items) { item in
+                ItemRow(item: item)
+                    .visualEffect { content, proxy in
+                        let frame = proxy.frame(in: .scrollView)
+                        let yPosition = frame.minY
+
+                        return content
+                            .hueRotation(.degrees(yPosition / 3))
+                            .offset(y: yPosition < 100 ? (100 - yPosition) * 0.3 : 0)
+                            .scaleEffect(yPosition < 100 ? 0.9 + (yPosition / 1000) : 1)
+                            .blur(radius: yPosition < 50 ? (50 - yPosition) / 10 : 0)
+                            .opacity(yPosition < 50 ? yPosition / 50 : 1)
+                    }
+            }
+        }
+    }
+}
+```
+
+## Mesh Gradients (iOS 18+)
+
+Mesh gradients create beautiful color fills from a grid of control points:
+
+```swift
+struct MeshGradientView: View {
+    var body: some View {
+        MeshGradient(
+            width: 3,
+            height: 3,
+            points: [
+                // Row 0
+                SIMD2(0.0, 0.0), SIMD2(0.5, 0.0), SIMD2(1.0, 0.0),
+                // Row 1
+                SIMD2(0.0, 0.5), SIMD2(0.5, 0.5), SIMD2(1.0, 0.5),
+                // Row 2
+                SIMD2(0.0, 1.0), SIMD2(0.5, 1.0), SIMD2(1.0, 1.0)
+            ],
+            colors: [
+                .red, .orange, .yellow,
+                .green, .blue, .purple,
+                .pink, .mint, .cyan
+            ]
+        )
+        .ignoresSafeArea()
+    }
+}
+```
+
+### Animated Mesh Gradient
+
+```swift
+struct AnimatedMeshGradient: View {
+    @State private var centerPoint = SIMD2<Float>(0.5, 0.5)
+
+    var body: some View {
+        TimelineView(.animation) { timeline in
+            let time = timeline.date.timeIntervalSinceReferenceDate
+
+            MeshGradient(
+                width: 3,
+                height: 3,
+                points: [
+                    SIMD2(0.0, 0.0), SIMD2(0.5, 0.0), SIMD2(1.0, 0.0),
+                    SIMD2(0.0, 0.5),
+                    SIMD2(
+                        0.5 + Float(sin(time)) * 0.2,
+                        0.5 + Float(cos(time)) * 0.2
+                    ),
+                    SIMD2(1.0, 0.5),
+                    SIMD2(0.0, 1.0), SIMD2(0.5, 1.0), SIMD2(1.0, 1.0)
+                ],
+                colors: [
+                    .red, .orange, .yellow,
+                    .green, .blue, .purple,
+                    .pink, .mint, .cyan
+                ]
+            )
+        }
+    }
+}
+```
+
+## TextRenderer (iOS 18+)
+
+TextRenderer allows customizing how SwiftUI Text is drawn, enabling per-glyph animations.
+
+### Basic TextRenderer
+
+```swift
+struct AnimatedTextRenderer: TextRenderer {
+    var elapsedTime: TimeInterval
+    var elementDuration: TimeInterval = 0.1
+    var totalDuration: TimeInterval = 0.9
+
+    var animatableData: Double {
+        get { elapsedTime }
+        set { elapsedTime = newValue }
+    }
+
+    func draw(layout: Text.Layout, in context: inout GraphicsContext) {
+        let count = layout.flattenedRunSlices.count
+        let delay = elementDelay(count: count)
+
+        for (index, slice) in layout.flattenedRunSlices.enumerated() {
+            let timeOffset = Double(index) * delay
+            let elementTime = max(0, min(elementDuration, elapsedTime - timeOffset))
+            let progress = elementTime / elementDuration
+
+            var copy = context
+
+            // Animate opacity
+            copy.opacity = progress
+
+            // Animate blur (from blurry to sharp)
+            let blurRadius = (1 - progress) * slice.typographicBounds.height / 3
+            copy.addFilter(.blur(radius: blurRadius))
+
+            // Animate vertical position
+            let yOffset = (1 - progress) * -slice.typographicBounds.descent
+            copy.translateBy(x: 0, y: yOffset)
+
+            copy.draw(slice, options: .disablesSubpixelQuantization)
+        }
+    }
+
+    private func elementDelay(count: Int) -> Double {
+        (totalDuration - elementDuration) / Double(max(1, count - 1))
+    }
+}
+```
+
+### Using TextRenderer with Transitions
+
+```swift
+struct TextAppearTransition: Transition {
+    func body(content: Content, phase: TransitionPhase) -> some View {
+        content
+            .transaction { transaction in
+                if !transaction.animation?.isSpring ?? false {
+                    transaction.animation = .linear(duration: 0.9)
+                }
+            }
+            .textRenderer(AnimatedTextRenderer(
+                elapsedTime: phase.isIdentity ? 0.9 : 0
+            ))
+    }
+}
+
+extension AnyTransition {
+    static var textAppear: AnyTransition {
+        .modifier(
+            active: TextAppearTransition(),
+            identity: TextAppearTransition()
+        )
+    }
+}
+
+// Usage
+struct TextTransitionDemo: View {
+    @State private var showText = false
+
+    var body: some View {
+        VStack {
+            if showText {
+                Text("Visual Effects")
+                    .font(.largeTitle)
+                    .transition(.textAppear)
+            }
+
+            Button("Toggle") {
+                withAnimation {
+                    showText.toggle()
+                }
+            }
+        }
+    }
+}
+```
+
+### TextAttribute for Selective Animation
+
+Mark specific text ranges for special treatment:
+
+```swift
+struct EmphasisAttribute: TextAttribute {}
+
+extension Text {
+    func emphasis() -> Text {
+        self.customAttribute(EmphasisAttribute())
+    }
+}
+
+// Usage
+Text("Welcome to ") + Text("Visual Effects").emphasis() + Text("!")
+```
+
+Then in your TextRenderer, check for the attribute:
+
+```swift
+func draw(layout: Text.Layout, in context: inout GraphicsContext) {
+    for run in layout.flattenedRuns {
+        let hasEmphasis = run[EmphasisAttribute.self] != nil
+
+        if hasEmphasis {
+            // Animate per-glyph
+            for slice in run {
+                // ... glyph animation
+            }
+        } else {
+            // Simple fade
+            context.opacity = progress
+            context.draw(run)
+        }
+    }
+}
+```
+
+## Animated Shader Example
 
 ```swift
 struct AnimatedShaderView: View {
-    @State private var phase: CGFloat = 0
-
     var body: some View {
         TimelineView(.animation) { timeline in
             let time = timeline.date.timeIntervalSinceReferenceDate
@@ -204,9 +640,9 @@ struct AnimatedShaderView: View {
 }
 ```
 
-### Common Shader Effects
+## Common Shader Effects
 
-#### Chromatic Aberration
+### Chromatic Aberration
 
 ```metal
 [[stitchable]] half4 chromaticAberration(
@@ -221,7 +657,7 @@ struct AnimatedShaderView: View {
 }
 ```
 
-#### Vignette
+### Vignette
 
 ```metal
 [[stitchable]] half4 vignette(
@@ -238,7 +674,7 @@ struct AnimatedShaderView: View {
 }
 ```
 
-#### Noise/Grain
+### Noise/Grain
 
 ```metal
 [[stitchable]] half4 filmGrain(
@@ -250,6 +686,22 @@ struct AnimatedShaderView: View {
     float noise = fract(sin(dot(position + time, float2(12.9898, 78.233))) * 43758.5453);
     half3 grain = half3(noise * intensity);
     return half4(color.rgb + grain, color.a);
+}
+```
+
+### Gradient Map
+
+```metal
+[[stitchable]] half4 gradientMap(
+    float2 position,
+    SwiftUI::Layer layer,
+    half4 shadowColor,
+    half4 highlightColor
+) {
+    half4 original = layer.sample(position);
+    float luminance = dot(original.rgb, half3(0.299, 0.587, 0.114));
+    half3 mapped = mix(shadowColor.rgb, highlightColor.rgb, luminance);
+    return half4(mapped, original.a);
 }
 ```
 
@@ -292,7 +744,6 @@ class Renderer: NSObject, MTKViewDelegate {
         device = mtkView.device
         commandQueue = device.makeCommandQueue()
 
-        // Create pipeline
         let library = device.makeDefaultLibrary()!
         let vertexFunction = library.makeFunction(name: "vertexShader")
         let fragmentFunction = library.makeFunction(name: "fragmentShader")
@@ -315,38 +766,11 @@ class Renderer: NSObject, MTKViewDelegate {
         else { return }
 
         renderEncoder.setRenderPipelineState(pipelineState)
-        // Add draw calls here
         renderEncoder.endEncoding()
 
         commandBuffer.present(drawable)
         commandBuffer.commit()
     }
-}
-```
-
-### macOS Version (NSViewRepresentable)
-
-```swift
-import SwiftUI
-import MetalKit
-
-struct MetalView: NSViewRepresentable {
-    func makeCoordinator() -> Renderer {
-        Renderer()
-    }
-
-    func makeNSView(context: Context) -> MTKView {
-        let mtkView = MTKView()
-        mtkView.device = MTLCreateSystemDefaultDevice()
-        mtkView.delegate = context.coordinator
-        mtkView.preferredFramesPerSecond = 60
-        mtkView.enableSetNeedsDisplay = false
-        mtkView.isPaused = false
-        context.coordinator.setup(mtkView: mtkView)
-        return mtkView
-    }
-
-    func updateNSView(_ nsView: MTKView, context: Context) {}
 }
 ```
 
@@ -358,26 +782,18 @@ import MetalKit
 
 #if os(iOS) || os(tvOS)
 typealias ViewRepresentable = UIViewRepresentable
-typealias ViewType = UIView
 #elseif os(macOS)
 typealias ViewRepresentable = NSViewRepresentable
-typealias ViewType = NSView
 #endif
 
 struct MetalView: ViewRepresentable {
-    func makeCoordinator() -> Renderer {
-        Renderer()
-    }
+    func makeCoordinator() -> Renderer { Renderer() }
 
     #if os(iOS) || os(tvOS)
-    func makeUIView(context: Context) -> MTKView {
-        createMTKView(context: context)
-    }
+    func makeUIView(context: Context) -> MTKView { createMTKView(context: context) }
     func updateUIView(_ uiView: MTKView, context: Context) {}
     #elseif os(macOS)
-    func makeNSView(context: Context) -> MTKView {
-        createMTKView(context: context)
-    }
+    func makeNSView(context: Context) -> MTKView { createMTKView(context: context) }
     func updateNSView(_ nsView: MTKView, context: Context) {}
     #endif
 
@@ -388,49 +804,6 @@ struct MetalView: ViewRepresentable {
         mtkView.preferredFramesPerSecond = 60
         context.coordinator.setup(mtkView: mtkView)
         return mtkView
-    }
-}
-```
-
-### Passing Data to Metal View
-
-```swift
-struct MetalView: UIViewRepresentable {
-    @Binding var parameter: Float
-
-    func makeCoordinator() -> Renderer {
-        Renderer()
-    }
-
-    func makeUIView(context: Context) -> MTKView {
-        // ... setup
-    }
-
-    func updateUIView(_ uiView: MTKView, context: Context) {
-        context.coordinator.parameter = parameter
-    }
-}
-
-class Renderer: NSObject, MTKViewDelegate {
-    var parameter: Float = 0
-
-    func draw(in view: MTKView) {
-        // Use self.parameter in rendering
-    }
-}
-```
-
-### Animated Metal Content with SwiftUI State
-
-```swift
-struct AnimatedMetalView: View {
-    @State private var time: Float = 0
-
-    var body: some View {
-        TimelineView(.animation) { timeline in
-            let elapsed = timeline.date.timeIntervalSinceReferenceDate
-            MetalView(time: Float(elapsed))
-        }
     }
 }
 ```
@@ -461,11 +834,20 @@ struct AnimatedMetalView: View {
 3. **Frame rate** - Use `TimelineView(.animation)` for smooth updates
 4. **Memory** - Large textures consume GPU memory
 5. **Profiling** - Use Xcode's GPU profiler for optimization
+6. **Debug UI** - Build parameter scrubbers for rapid iteration
+
+## Best Practices
+
+1. **Experiment boldly** - Turn parameters up to explore boundaries
+2. **Live with effects** - Test over time to ensure they're pleasant, not distracting
+3. **Context matters** - Effects should fit naturally within the larger app
+4. **Build debug tools** - Scrubbers and visualizers accelerate development
+5. **Consider accessibility** - Ensure effects don't impair usability
 
 ## Sources
 
-- EnDavid Blog - SwiftUI and Metal (Feb 2024)
-- Apple Developer Forums - MetalKit in SwiftUI
-- WWDC23 - Create custom visual effects with SwiftUI
+- WWDC 2024 - Create custom visual effects with SwiftUI
+- WWDC 2023 - Create custom visual effects with SwiftUI
 - Apple Developer Documentation - Metal Shading Language
-- Hacking with Swift - Metal shaders in SwiftUI
+- Apple Developer Documentation - TextRenderer
+- Apple Developer Forums - MetalKit in SwiftUI

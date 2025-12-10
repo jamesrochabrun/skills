@@ -844,10 +844,606 @@ struct MetalView: ViewRepresentable {
 4. **Build debug tools** - Scrubbers and visualizers accelerate development
 5. **Consider accessibility** - Ensure effects don't impair usability
 
+## Ready-to-Use Shader Effects (from Inferno)
+
+The following shaders are adapted from [Inferno](https://github.com/twostraws/Inferno) by Paul Hudson (MIT License). Inferno is an excellent open-source collection of fragment shaders designed for SwiftUI apps, with comprehensive documentation and beginner-friendly code.
+
+### Water Ripple Effect
+
+A distortion shader that creates animated water ripples.
+
+```metal
+// Water.metal - from Inferno (https://github.com/twostraws/Inferno)
+// MIT License - Copyright (c) 2023 Paul Hudson
+
+[[stitchable]] float2 water(
+    float2 position,
+    float2 size,
+    float time,
+    float speed,      // 0.5-10, start with 3
+    float strength,   // 1-5, start with 3
+    float frequency   // 5-25, start with 10
+) {
+    // Normalize to UV space (0..1)
+    float2 uv = position / size;
+
+    // Adjust parameters
+    float adjustedSpeed = time * speed * 0.05f;
+    float adjustedStrength = strength / 100.0f;
+
+    // Wrap phase to avoid large trig arguments
+    const float TWO_PI = 6.28318530718f;
+    float phase = fmod(adjustedSpeed * frequency, TWO_PI);
+
+    // Apply sine/cosine distortion
+    float argX = frequency * uv.x + phase;
+    float argY = frequency * uv.y + phase;
+    uv.x += fast::sin(argX) * adjustedStrength;
+    uv.y += fast::cos(argY) * adjustedStrength;
+
+    return uv * size;
+}
+```
+
+```swift
+// SwiftUI Usage
+struct WaterEffectView: View {
+    @State private var startTime = Date.now
+
+    var body: some View {
+        TimelineView(.animation) { timeline in
+            let elapsedTime = startTime.distance(to: timeline.date)
+
+            Image("photo")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .drawingGroup()
+                .visualEffect { content, proxy in
+                    content.distortionEffect(
+                        ShaderLibrary.water(
+                            .float2(proxy.size),
+                            .float(elapsedTime),
+                            .float(3),   // speed
+                            .float(3),   // strength
+                            .float(10)   // frequency
+                        ),
+                        maxSampleOffset: .zero
+                    )
+                }
+        }
+    }
+}
+```
+
+### Emboss Effect
+
+Creates a 3D relief/embossed appearance.
+
+```metal
+// Emboss.metal - from Inferno (https://github.com/twostraws/Inferno)
+// MIT License - Copyright (c) 2023 Paul Hudson
+
+[[stitchable]] half4 emboss(
+    float2 position,
+    SwiftUI::Layer layer,
+    float strength  // How far to read pixels, try 1-20
+) {
+    // Read current pixel
+    half4 currentColor = layer.sample(position);
+    half4 newColor = currentColor;
+
+    // Add brightness from one diagonal direction
+    newColor += layer.sample(position + 1.0) * strength;
+
+    // Subtract brightness from opposite direction
+    newColor -= layer.sample(position - 1.0) * strength;
+
+    // Preserve original alpha for smooth edges
+    return half4(newColor) * currentColor.a;
+}
+```
+
+```swift
+// SwiftUI Usage
+Image("photo")
+    .layerEffect(
+        ShaderLibrary.emboss(.float(5)),
+        maxSampleOffset: .zero
+    )
+```
+
+### Color Planes (RGB Glitch)
+
+Separates RGB channels for a glitch effect - great with accelerometer data.
+
+```metal
+// ColorPlanes.metal - from Inferno (https://github.com/twostraws/Inferno)
+// MIT License - Copyright (c) 2023 Paul Hudson
+
+[[stitchable]] half4 colorPlanes(
+    float2 position,
+    SwiftUI::Layer layer,
+    float2 offset  // How much to offset colors
+) {
+    // Red channel: double offset
+    float2 red = position - (offset * 2.0);
+
+    // Blue channel: single offset
+    float2 blue = position - offset;
+
+    // Green from original position
+    half4 color = layer.sample(position);
+
+    // Replace red and blue channels
+    color.r = layer.sample(red).r;
+    color.b = layer.sample(blue).b;
+
+    // Multiply by alpha for smooth edges
+    return color * color.a;
+}
+```
+
+```swift
+// SwiftUI Usage - drag to offset
+struct ColorPlanesView: View {
+    @State private var offset = CGSize.zero
+
+    var body: some View {
+        Image("photo")
+            .drawingGroup()
+            .layerEffect(
+                ShaderLibrary.colorPlanes(.float2(offset)),
+                maxSampleOffset: .zero
+            )
+            .gesture(
+                DragGesture(minimumDistance: 0)
+                    .onChanged { offset = $0.translation }
+            )
+    }
+}
+```
+
+### Infrared Thermal Effect
+
+Simulates thermal/infrared imaging by mapping brightness to a cold-to-hot color scale.
+
+```metal
+// Infrared.metal - from Inferno (https://github.com/twostraws/Inferno)
+// MIT License - Copyright (c) 2023 Paul Hudson
+
+[[stitchable]] half4 infrared(float2 position, half4 color) {
+    if (color.a > 0) {
+        // Define temperature colors
+        half3 cold = half3(0.0h, 0.0h, 1.0h);    // Blue
+        half3 medium = half3(1.0h, 1.0h, 0.0h);  // Yellow
+        half3 hot = half3(1.0h, 0.0h, 0.0h);     // Red
+
+        // Calculate luminance
+        half3 grayValues = half3(0.2125h, 0.7154h, 0.0721h);
+        half luma = dot(color.rgb, grayValues);
+
+        // Map to temperature colors
+        half3 newColor;
+        if (luma < 0.5h) {
+            newColor = mix(cold, medium, luma / 0.5h);
+        } else {
+            newColor = mix(medium, hot, (luma - 0.5h) / 0.5h);
+        }
+
+        return half4(newColor, 1.0h) * color.a;
+    }
+    return color;
+}
+```
+
+```swift
+// SwiftUI Usage
+Image("photo")
+    .colorEffect(ShaderLibrary.infrared())
+```
+
+### White Noise
+
+Generates dynamic grayscale static noise.
+
+```metal
+// WhiteNoise.metal - from Inferno (https://github.com/twostraws/Inferno)
+// MIT License - Copyright (c) 2023 Paul Hudson
+
+float whiteRandom(float offset, float2 position, float time) {
+    float2 nonRepeating = float2(12.9898 * time, 78.233 * time);
+    float sum = dot(position, nonRepeating);
+    float sine = sin(sum);
+    float hugeNumber = sine * 43758.5453 * offset;
+    return fract(hugeNumber);
+}
+
+[[stitchable]] half4 whiteNoise(float2 position, half4 color, float time) {
+    if (color.a > 0.0h) {
+        return half4(half3(whiteRandom(1.0, position, time)), 1.0h) * color.a;
+    }
+    return color;
+}
+```
+
+```swift
+// SwiftUI Usage
+struct NoiseView: View {
+    @State private var startTime = Date.now
+
+    var body: some View {
+        TimelineView(.animation) { timeline in
+            let elapsedTime = startTime.distance(to: timeline.date)
+
+            Rectangle()
+                .colorEffect(ShaderLibrary.whiteNoise(.float(elapsedTime)))
+        }
+    }
+}
+```
+
+### Loupe (Magnifier)
+
+Creates a circular zoom effect at a touch location.
+
+```metal
+// SimpleLoupe.metal - from Inferno (https://github.com/twostraws/Inferno)
+// MIT License - Copyright (c) 2023 Paul Hudson
+
+[[stitchable]] half4 simpleLoupe(
+    float2 position,
+    SwiftUI::Layer layer,
+    float2 size,
+    float2 touch,        // Touch location
+    float maxDistance,   // Loupe size, try 0.05
+    float zoomFactor     // Zoom amount, try 2
+) {
+    // Calculate UV coordinates
+    half2 uv = half2(position / size);
+    half2 center = half2(touch / size);
+    half2 delta = uv - center;
+
+    // Calculate distance with aspect ratio correction
+    half aspectRatio = size.x / size.y;
+    half distance = (delta.x * delta.x) + (delta.y * delta.y) / aspectRatio;
+
+    // Apply zoom inside loupe area
+    half totalZoom = 1.0h;
+    if (distance < maxDistance) {
+        totalZoom /= zoomFactor;
+    }
+
+    // Calculate zoomed position
+    half2 newPosition = delta * totalZoom + center;
+
+    return layer.sample(float2(newPosition) * size);
+}
+```
+
+```swift
+// SwiftUI Usage
+struct LoupeView: View {
+    @State private var touchLocation = CGPoint.zero
+
+    var body: some View {
+        Image("photo")
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .drawingGroup()
+            .visualEffect { content, proxy in
+                content.layerEffect(
+                    ShaderLibrary.simpleLoupe(
+                        .float2(proxy.size),
+                        .float2(touchLocation),
+                        .float(0.05),  // loupe size
+                        .float(2)      // zoom factor
+                    ),
+                    maxSampleOffset: .zero
+                )
+            }
+            .gesture(
+                DragGesture(minimumDistance: 0)
+                    .onChanged { touchLocation = $0.location }
+            )
+    }
+}
+```
+
+### Shimmer Effect
+
+Animated diagonal highlight sweep - great for loading states.
+
+```metal
+// Shimmer.metal - from Inferno (https://github.com/twostraws/Inferno)
+// MIT License - Copyright (c) 2023 Paul Hudson
+
+// RGB to HSL conversion
+half3 rgbToHSL(half3 rgb) {
+    half minVal = min3(rgb.r, rgb.g, rgb.b);
+    half maxVal = max3(rgb.r, rgb.g, rgb.b);
+    half delta = maxVal - minVal;
+
+    half3 hsl = half3(0.0h, 0.0h, 0.5h * (maxVal + minVal));
+
+    if (delta > 0.0h) {
+        if (maxVal == rgb.r) {
+            hsl[0] = fmod((rgb.g - rgb.b) / delta, 6.0h);
+        } else if (maxVal == rgb.g) {
+            hsl[0] = (rgb.b - rgb.r) / delta + 2.0h;
+        } else {
+            hsl[0] = (rgb.r - rgb.g) / delta + 4.0h;
+        }
+        hsl[0] /= 6.0h;
+        if (hsl[2] > 0.0h && hsl[2] < 1.0h) {
+            hsl[1] = delta / (1.0h - abs(2.0h * hsl[2] - 1.0h));
+        }
+    }
+    return hsl;
+}
+
+// HSL to RGB conversion
+half3 hslToRGB(half3 hsl) {
+    half c = (1.0h - abs(2.0h * hsl[2] - 1.0h)) * hsl[1];
+    half h = hsl[0] * 6.0h;
+    half x = c * (1.0h - abs(fmod(h, 2.0h) - 1.0h));
+
+    half3 rgb;
+    if (h < 1.0h) rgb = half3(c, x, 0.0h);
+    else if (h < 2.0h) rgb = half3(x, c, 0.0h);
+    else if (h < 3.0h) rgb = half3(0.0h, c, x);
+    else if (h < 4.0h) rgb = half3(0.0h, x, c);
+    else if (h < 5.0h) rgb = half3(x, 0.0h, c);
+    else rgb = half3(c, 0.0h, x);
+
+    return rgb + (hsl[2] - 0.5h * c);
+}
+
+[[stitchable]] half4 shimmer(
+    float2 position,
+    half4 color,
+    float2 size,
+    float time,
+    float animationDuration,  // Loop duration in seconds
+    float gradientWidth,      // Width of shimmer in UV space
+    float maxLightness        // Peak brightness boost
+) {
+    if (color.a == 0.0h) return color;
+
+    // Calculate animation progress
+    float loopedProgress = fmod(time, float(animationDuration));
+    half progress = loopedProgress / animationDuration;
+
+    // Convert to UV space
+    half2 uv = half2(position / size);
+
+    // Calculate gradient bounds
+    half minU = 0.0h - gradientWidth;
+    half maxU = 1.0h + gradientWidth;
+    half start = minU + maxU * progress + gradientWidth * uv.y;
+    half end = start + gradientWidth;
+
+    if (uv.x > start && uv.x < end) {
+        half gradient = smoothstep(start, end, uv.x);
+        half intensity = sin(gradient * M_PI_H);
+
+        // Adjust lightness in HSL space
+        half3 hsl = rgbToHSL(color.rgb);
+        hsl[2] = hsl[2] + half(maxLightness * (maxLightness > 0.0h ? 1 - hsl[2] : hsl[2])) * intensity;
+        color.rgb = hslToRGB(hsl);
+    }
+
+    return color;
+}
+```
+
+```swift
+// SwiftUI Usage
+struct ShimmerView: View {
+    @State private var startTime = Date.now
+
+    var body: some View {
+        TimelineView(.animation) { timeline in
+            let elapsedTime = startTime.distance(to: timeline.date)
+
+            Text("Loading...")
+                .font(.largeTitle)
+                .foregroundStyle(.gray)
+                .visualEffect { content, proxy in
+                    content.colorEffect(
+                        ShaderLibrary.shimmer(
+                            .float2(proxy.size),
+                            .float(elapsedTime),
+                            .float(2.0),   // animation duration
+                            .float(0.3),   // gradient width
+                            .float(0.8)    // max lightness
+                        )
+                    )
+                }
+        }
+    }
+}
+```
+
+## Transition Shaders (from Inferno)
+
+Inferno also provides shader-based view transitions. These require both the Metal shader and a SwiftUI `AnyTransition` extension.
+
+### Pixellate Transition
+
+Views pixellate while fading between states.
+
+```metal
+// Pixellate.metal - from Inferno (https://github.com/twostraws/Inferno)
+// MIT License - Copyright (c) 2023 Paul Hudson
+
+[[stitchable]] half4 pixellate(
+    float2 position,
+    SwiftUI::Layer layer,
+    float2 size,
+    float amount,   // Progress 0-1
+    float squares,  // Number of pixel squares
+    float steps     // Animation steps (lower = more retro)
+) {
+    half2 uv = half2(position / size);
+
+    // Direction goes 0 -> 0.5 -> 0
+    half direction = min(amount, 1.0 - amount);
+
+    // Quantize for stepped animation
+    half steppedProgress = ceil(direction * steps) / steps;
+    half2 squareSize = 2.0h * steppedProgress / half2(squares);
+
+    half2 newPosition;
+    if (steppedProgress == 0.0h) {
+        newPosition = uv;
+    } else {
+        newPosition = (floor(uv / squareSize) + 0.5h) * squareSize;
+    }
+
+    // Blend with transparency as transition progresses
+    return mix(layer.sample(float2(newPosition) * size), 0.0h, amount);
+}
+```
+
+### Swirl Transition
+
+Vortex effect that twists views during transition.
+
+```metal
+// Swirl.metal - from Inferno (https://github.com/twostraws/Inferno)
+// MIT License - Copyright (c) 2023 Paul Hudson
+
+[[stitchable]] half4 swirl(
+    float2 position,
+    SwiftUI::Layer layer,
+    float2 size,
+    float amount,  // Progress 0-1
+    float radius   // Swirl radius relative to view, try 0.5
+) {
+    half2 uv = half2(position / size);
+    uv -= 0.5h;
+
+    half distanceFromCenter = length(uv);
+
+    if (distanceFromCenter < radius) {
+        half swirlStrength = (radius - distanceFromCenter) / radius;
+
+        // Swirl intensity: 0->1->0 during transition
+        half swirlAmount;
+        if (amount <= 0.5) {
+            swirlAmount = mix(0.0h, 1.0h, half(amount) / 0.5h);
+        } else {
+            swirlAmount = mix(1.0h, 0.0h, (half(amount) - 0.5h) / 0.5h);
+        }
+
+        half swirlAngle = swirlStrength * swirlStrength * swirlAmount * 8.0h * M_PI_H;
+
+        // Rotate UV coordinates
+        half sinAngle = sin(swirlAngle);
+        half cosAngle = cos(swirlAngle);
+        uv = half2(
+            dot(uv, half2(cosAngle, -sinAngle)),
+            dot(uv, half2(sinAngle, cosAngle))
+        );
+    }
+
+    uv += 0.5h;
+    return mix(layer.sample(float2(uv) * size), 0.0h, amount);
+}
+```
+
+```swift
+// Transition usage example
+struct TransitionDemo: View {
+    @State private var showingFirst = true
+
+    var body: some View {
+        VStack {
+            if showingFirst {
+                Image(systemName: "star.fill")
+                    .font(.system(size: 200))
+                    .foregroundStyle(.yellow)
+                    .drawingGroup()
+                    .transition(.swirl(radius: 0.5))
+            } else {
+                Image(systemName: "heart.fill")
+                    .font(.system(size: 200))
+                    .foregroundStyle(.red)
+                    .drawingGroup()
+                    .transition(.swirl(radius: 0.5))
+            }
+
+            Button("Toggle") {
+                withAnimation(.easeInOut(duration: 1.5)) {
+                    showingFirst.toggle()
+                }
+            }
+        }
+    }
+}
+```
+
+## Metal Shading Language Reference
+
+### Common Data Types
+
+| Type | Description | Swift Equivalent |
+|------|-------------|------------------|
+| `float` | 32-bit float | `Float`, `CGFloat`, `Double` via `.float()` |
+| `float2` | 2D vector | `CGPoint`, `CGSize` via `.float2()` |
+| `float4` | 4D vector | - |
+| `half` | 16-bit float (faster on GPU) | - |
+| `half3` | RGB color | - |
+| `half4` | RGBA color | `Color` via `.color()` |
+| `uint2` | Integer 2D vector | - |
+
+### Numeric Literals
+
+```metal
+float x = 0.5;      // or 0.5f, 0.5F
+half h = 0.5h;      // or 0.5H (use h suffix for half precision)
+int i = 42;
+uint u = 42u;       // or 42U
+```
+
+### Common Functions
+
+| Function | Description |
+|----------|-------------|
+| `abs(x)` | Absolute value |
+| `ceil(x)` | Round up |
+| `floor(x)` | Round down |
+| `fract(x)` | Fractional part |
+| `fmod(x, y)` | Remainder of x/y |
+| `min(a, b)` | Minimum value |
+| `max(a, b)` | Maximum value |
+| `mix(a, b, t)` | Linear interpolation |
+| `smoothstep(e0, e1, x)` | S-curve interpolation |
+| `sin(x)`, `cos(x)` | Trigonometry (radians) |
+| `fast::sin(x)` | Fast approximation |
+| `pow(x, y)` | x raised to power y |
+| `dot(a, b)` | Dot product |
+| `length(v)` | Vector length |
+| `normalize(v)` | Unit vector |
+| `distance(a, b)` | Distance between points |
+| `layer.sample(pos)` | Sample layer color at position |
+
+### Performance Tips
+
+1. **Prefer `half` over `float`** - Half precision is faster on mobile GPUs
+2. **Use `fast::sin()` and `fast::cos()`** - Good enough for visual effects
+3. **Precompute on CPU** - Calculate constants in Swift, pass as uniforms
+4. **Avoid branching** - Use `mix()` and `step()` instead of `if/else`
+5. **Minimize texture samples** - Each `layer.sample()` is expensive
+
 ## Sources
 
 - WWDC 2024 - Create custom visual effects with SwiftUI
 - WWDC 2023 - Create custom visual effects with SwiftUI
+- [Inferno](https://github.com/twostraws/Inferno) by Paul Hudson - MIT License
 - Apple Developer Documentation - Metal Shading Language
 - Apple Developer Documentation - TextRenderer
 - Apple Developer Forums - MetalKit in SwiftUI
+- [The Book of Shaders](https://thebookofshaders.com) - Shader fundamentals
+- [ShaderToy](https://www.shadertoy.com) - Shader inspiration and examples
+- [GL Transitions](https://www.gl-transitions.com) - Transition effects

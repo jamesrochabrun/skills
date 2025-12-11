@@ -9,6 +9,8 @@ Expert guidance for implementing advanced SwiftUI animations and Metal shader in
 
 ## When to Use This Skill
 
+- Understanding motion design principles and when to use animation
+- Making animations accessible and platform-appropriate
 - Implementing animations in SwiftUI (springs, easing, keyframes)
 - Creating view transitions (fade, slide, scale, custom)
 - Building hero animations with matchedGeometryEffect
@@ -84,6 +86,12 @@ DetailView()
 ## Reference Materials
 
 Detailed documentation is available in `references/`:
+
+- **motion-guidelines.md** - HIG Motion design principles
+  - Purpose-driven motion philosophy
+  - Accessibility requirements
+  - Platform-specific considerations (iOS, visionOS, watchOS)
+  - Animation anti-patterns to avoid
 
 - **animations.md** - Complete animation API guide
   - Implicit vs explicit animations
@@ -164,13 +172,16 @@ Circle()
 
 ## Best Practices
 
-1. **Prefer explicit animations** - Use `withAnimation` over `.animation()` modifier for clarity
-2. **Use spring animations** - They feel more natural and iOS-native
-3. **Start with `.spring(response: 0.35, dampingFraction: 0.8)`** - Good default for most interactions
-4. **Keep animations under 400ms** - Longer feels sluggish
-5. **Test on device** - Simulator animation timing differs
-6. **Use matched geometry sparingly** - It's powerful but can be complex to debug
-7. **Profile shader performance** - GPU time matters for complex effects
+1. **Motion should be purposeful** - Don't add animation for its own sake; support the experience without overshadowing it
+2. **Make motion optional** - Supplement with haptics and audio; never use motion as the only way to communicate
+3. **Aim for brevity** - Brief, precise animations feel lightweight and convey information effectively
+4. **Prefer explicit animations** - Use `withAnimation` over `.animation()` modifier for clarity
+5. **Use spring animations** - They feel more natural and iOS-native
+6. **Start with `.spring(response: 0.35, dampingFraction: 0.8)`** - Good default for most interactions
+7. **Keep animations under 400ms** - Longer feels sluggish
+8. **Let people cancel motion** - Don't force users to wait for animations to complete
+9. **Test on device** - Simulator animation timing differs
+10. **Profile shader performance** - GPU time matters for complex effects
 
 ## Troubleshooting
 

@@ -1,8 +1,8 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "skills-marketplace",
-  "version": "2.0.0",
-  "description": "A comprehensive collection of 21 custom skills for Claude Code covering engineering, product management, design, content, trading, database, QA, educational, and AI prompt engineering domains. Install individual skills or the complete collection.",
+  "version": "2.1.0",
+  "description": "A comprehensive collection of 23 custom skills for Claude Code covering engineering, iOS/Swift development, product management, design, content, trading, database, QA, educational, and AI prompt engineering domains. Install individual skills or the complete collection.",
   "owner": {
     "name": "James Rochabrun",
     "email": "jamesrochabrun@gmail.com"
@@ -10,7 +10,7 @@
   "plugins": [
     {
       "name": "all-skills",
-      "description": "Complete collection of all 21 skills including engineering, product, design, content, finance, database, QA, educational, and AI prompt engineering skills",
+      "description": "Complete collection of all 23 skills including engineering, iOS/Swift, product, design, content, finance, database, QA, educational, and AI prompt engineering skills",
       "source": "./",
       "strict": true,
       "skills": [
@@ -33,6 +33,8 @@
         "./skills/qa-test-planner",
         "./skills/query-expert",
         "./skills/reading-teacher",
+        "./skills/swift-concurrency",
+        "./skills/swiftui-animation",
         "./skills/technical-launch-planner",
         "./skills/trading-plan-generator"
       ]
@@ -169,6 +171,20 @@
       "source": "./",
       "strict": true,
       "skills": ["./skills/reading-teacher"]
+    },
+    {
+      "name": "swift-concurrency",
+      "description": "Guide for building, auditing, and refactoring Swift code using modern concurrency patterns (Swift 6+). This skill should be used when working with async/await, Tasks, actors, MainActor, Sendable types, isolation domains, or when migrating legacy callback/Combine code to structured concurrency. Covers Approachable Concurrency settings, isolated parameters, and common pitfalls.",
+      "source": "./",
+      "strict": true,
+      "skills": ["./skills/swift-concurrency"]
+    },
+    {
+      "name": "swiftui-animation",
+      "description": "This skill provides comprehensive guidance for implementing advanced SwiftUI animations, transitions, matched geometry effects, and Metal shader integration. Use when building animations, view transitions, hero animations, or GPU-accelerated effects in SwiftUI apps for iOS and macOS.",
+      "source": "./",
+      "strict": true,
+      "skills": ["./skills/swiftui-animation"]
     },
     {
       "name": "technical-launch-planner",

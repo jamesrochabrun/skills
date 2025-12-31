@@ -1,6 +1,6 @@
 # Skills Plugin & Marketplace
 
-A comprehensive plugin and marketplace for Claude Code containing 21 custom skills across engineering, product management, design, content, trading, database, QA, educational, and AI architecture domains.
+A comprehensive plugin and marketplace for Claude Code containing 23 custom skills across engineering, iOS/Swift development, product management, design, content, trading, database, QA, educational, and AI architecture domains.
 
 ## Overview
 
@@ -10,7 +10,7 @@ This repository provides Claude Code with specialized knowledge and workflows th
 
 ## Skills Index
 
-Quick navigation to all 21 skills organized by category:
+Quick navigation to all 23 skills organized by category:
 
 ### AI & Architecture (2 skills)
 - [anthropic-architect](#anthropic-architect) - Determine the best Anthropic architecture for your project
@@ -22,6 +22,10 @@ Quick navigation to all 21 skills organized by category:
 - [llm-router](#llm-router) - Route requests to different LLM providers
 - [engineer-expertise-extractor](#engineer-expertise-extractor) - Extract engineering expertise from GitHub
 - [engineer-skill-creator](#engineer-skill-creator) - Transform expertise into actionable skills
+
+### iOS & Swift Development (2 skills)
+- [swift-concurrency](#swift-concurrency) - Build, audit, and refactor Swift 6+ concurrency code
+- [swiftui-animation](#swiftui-animation) - Advanced SwiftUI animations and Metal shaders
 
 ### Product Management (1 skill)
 - [prd-generator](#prd-generator) - Generate Product Requirements Documents
@@ -478,6 +482,129 @@ their standards"
 3. **Use:** Reference skill in agent prompts → Get expert guidance
 
 [View engineer-skill-creator skill →](./skills/engineer-skill-creator)
+
+---
+
+### iOS & Swift Development Skills
+
+#### swift-concurrency
+
+**Build, audit, and refactor Swift code using modern concurrency patterns (Swift 6+).** Comprehensive guide for async/await, Tasks, actors, MainActor, Sendable types, isolation domains, and Approachable Concurrency settings.
+
+**Key features:**
+- Building workflow with isolation decision trees
+- Auditing checklist for concurrency issues
+- Refactoring patterns (callbacks → async/await, DispatchQueue → actors)
+- Isolated parameters for non-Sendable types
+- Approachable Concurrency settings (Swift 6.2+)
+- Common mistakes and anti-patterns
+
+**Usage:**
+- "Using swift-concurrency, audit this code for concurrency issues"
+- "Refactor this callback-based code to async/await"
+- "Should I use an actor or MainActor here?"
+- "Fix the Sendable errors in this code"
+
+**Three Workflows:**
+- **Building:** Decision trees for isolation, async function design, parallel work
+- **Auditing:** Checklists for critical issues, common mistakes, SwiftUI-specific problems
+- **Refactoring:** Migrate callbacks, DispatchQueue, and Combine to modern concurrency
+
+**Quick Reference:**
+| Keyword | Purpose |
+|---------|---------|
+| `async` | Function can suspend |
+| `await` | Suspension point |
+| `Task { }` | Start async work, inherits isolation |
+| `@MainActor` | Runs on main thread |
+| `actor` | Type with isolated mutable state |
+| `nonisolated` | Opts out of actor isolation |
+| `@concurrent` | Always run on background (Swift 6.2+) |
+| `Sendable` | Safe to cross isolation boundaries |
+
+**Reference materials:**
+- `fundamentals.md` - async/await, Tasks, structured concurrency
+- `isolation.md` - Actors, MainActor, isolation domains
+- `sendable.md` - Sendable protocol, non-Sendable patterns
+- `common-mistakes.md` - Anti-patterns to avoid
+- `glossary.md` - Complete terminology reference
+
+**Perfect for:**
+- Swift 6 migration
+- Auditing existing concurrency code
+- Understanding isolation domains
+- Fixing Sendable errors
+- Learning modern Swift concurrency patterns
+
+[View swift-concurrency skill →](./skills/swift-concurrency)
+
+---
+
+#### swiftui-animation
+
+**Advanced SwiftUI animations, transitions, and Metal shader integration.** Comprehensive guidance for implementing animations, matched geometry effects, and GPU-accelerated visual effects in iOS and macOS apps.
+
+**Key features:**
+- Spring animations with iOS 17+ presets
+- View transitions (opacity, scale, slide, custom)
+- Matched geometry effect for hero animations
+- Metal shader integration (colorEffect, distortionEffect, layerEffect)
+- PhaseAnimator and KeyframeAnimator
+- HIG Motion design principles
+
+**Usage:**
+- "Using swiftui-animation, create a hero animation between views"
+- "Add a spring animation to this button"
+- "Implement a Metal shader ripple effect"
+- "Create an expandable card animation"
+
+**Animation Basics:**
+```swift
+// Explicit animation (preferred)
+withAnimation(.spring(response: 0.4, dampingFraction: 0.75)) {
+    isExpanded.toggle()
+}
+
+// iOS 17+ spring presets
+withAnimation(.snappy) { ... }  // Fast, small bounce
+withAnimation(.smooth) { ... }  // Gentle, no bounce
+withAnimation(.bouncy) { ... }  // More bounce
+```
+
+**Matched Geometry Effect:**
+```swift
+@Namespace var namespace
+
+// Source view
+ThumbnailView()
+    .matchedGeometryEffect(id: "hero", in: namespace)
+
+// Destination view
+DetailView()
+    .matchedGeometryEffect(id: "hero", in: namespace)
+```
+
+**Reference materials:**
+- `motion-guidelines.md` - HIG Motion design principles
+- `animations.md` - Complete animation API guide
+- `transitions.md` - View transitions and hero animations
+- `metal-shaders.md` - GPU shader integration
+
+**Best Practices:**
+- Prefer explicit animations with `withAnimation`
+- Use spring animations for natural feel
+- Start with `.spring(response: 0.35, dampingFraction: 0.8)`
+- Keep animations under 400ms
+- Test on device (simulator timing differs)
+
+**Perfect for:**
+- iOS/macOS app developers
+- SwiftUI animation implementation
+- Hero transitions between views
+- Custom Metal shader effects
+- Polished, Apple-quality interactions
+
+[View swiftui-animation skill →](./skills/swiftui-animation)
 
 ---
 
@@ -1213,7 +1340,7 @@ You have two ways to use this skills collection:
 
 ### Option 1: Install ALL Skills (Bundle)
 
-Get all 21 skills at once with intelligent routing:
+Get all 23 skills at once with intelligent routing:
 
 ```bash
 /plugin marketplace add jamesrochabrun/skills
@@ -1286,6 +1413,10 @@ Pick only the skills you need for better performance and focused context:
 - `/plugin install reading-teacher@skills-marketplace`
 - `/plugin install leetcode-teacher@skills-marketplace`
 
+**iOS & Swift Development:**
+- `/plugin install swift-concurrency@skills-marketplace`
+- `/plugin install swiftui-animation@skills-marketplace`
+
 ### Plugin Structure
 
 The plugin follows the standard Claude Code plugin architecture:
@@ -1294,8 +1425,8 @@ The plugin follows the standard Claude Code plugin architecture:
 skills/
 ├── .claude-plugin/
 │   ├── plugin.json          # Plugin metadata
-│   └── marketplace.json     # Marketplace configuration (22 plugins: 1 bundle + 21 individual)
-├── skills/                   # All skills collection (21 total)
+│   └── marketplace.json     # Marketplace configuration (24 plugins: 1 bundle + 23 individual)
+├── skills/                   # All skills collection (23 total)
 │   ├── anthropic-architect/
 │   ├── anthropic-prompt-engineer/
 │   ├── openai-prompt-engineer/
@@ -1303,6 +1434,8 @@ skills/
 │   ├── llm-router/
 │   ├── engineer-expertise-extractor/
 │   ├── engineer-skill-creator/
+│   ├── swift-concurrency/
+│   ├── swiftui-animation/
 │   ├── prd-generator/
 │   ├── technical-launch-planner/
 │   ├── design-brief-generator/
@@ -1324,9 +1457,9 @@ skills/
 ### How It Works
 
 **Marketplace Configuration:**
-- The `marketplace.json` exposes 22 installable options
-- 1 "all-skills" bundle with `strict: false` (intelligent routing across all 21 skills)
-- 21 individual skills with `strict: true` (explicit activation when installed)
+- The `marketplace.json` exposes 24 installable options
+- 1 "all-skills" bundle with `strict: false` (intelligent routing across all 23 skills)
+- 23 individual skills with `strict: true` (explicit activation when installed)
 
 **Installation Flexibility:**
 - Install the bundle for comprehensive coverage with smart skill selection
@@ -1351,7 +1484,7 @@ MIT License - See individual skills for their specific licenses.
 This marketplace provides flexible installation options:
 
 ### Bundle Installation (all-skills)
-- **What:** All 21 skills in one package
+- **What:** All 23 skills in one package
 - **Behavior:** `strict: false` enables intelligent skill routing
 - **Best for:** Users who work across multiple domains and want comprehensive coverage
 - **Trade-off:** Larger context window, but Claude automatically selects relevant skills
@@ -1365,9 +1498,9 @@ This marketplace provides flexible installation options:
 ### Technical Details
 
 **marketplace.json structure:**
-- 22 total plugin entries
-- 1 "all-skills" bundle pointing to root with all 21 skills
-- 21 individual plugins, each pointing to a single skill
+- 24 total plugin entries
+- 1 "all-skills" bundle pointing to root with all 23 skills
+- 23 individual plugins, each pointing to a single skill
 - All use same repository source (`./`) with different skill paths
 
 **Why this works:**
@@ -1386,11 +1519,16 @@ Built for use with [Claude Code](https://claude.ai/code) by Anthropic.
 
 ## Version
 
-**Current Version:** 2.0.0
+**Current Version:** 2.1.0
+
+**What's New in 2.1.0:**
+- 🍎 New iOS & Swift Development category with 2 skills
+- ⚡ swift-concurrency - Modern Swift 6+ concurrency patterns
+- 🎬 swiftui-animation - Advanced animations and Metal shaders
+- 🎯 24 installable options (1 bundle + 23 individual skills)
 
 **What's New in 2.0.0:**
 - ✨ Individual skill installation support
-- 🎯 22 installable options (1 bundle + 21 individual skills)
 - ⚡ Better performance with focused skill selection
 - 🔧 Smart routing with `strict: false` for bundle, `strict: true` for individual skills
 

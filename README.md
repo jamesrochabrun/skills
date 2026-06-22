@@ -1,6 +1,6 @@
 # Skills Plugin & Marketplace
 
-A comprehensive plugin and marketplace for Claude Code containing 24 custom skills across engineering, Apple development, product management, design, content, trading, database, QA, educational, and AI architecture domains.
+A comprehensive plugin and marketplace for Claude Code containing 25 custom skills across engineering, Apple development, product management, design, content, public research, trading, database, QA, educational, and AI architecture domains.
 
 ## Overview
 
@@ -10,7 +10,7 @@ This repository provides Claude Code with specialized knowledge and workflows th
 
 ## Skills Index
 
-Quick navigation to all 24 skills organized by category:
+Quick navigation to all 25 skills organized by category:
 
 ### AI & Architecture (2 skills)
 - [anthropic-architect](#anthropic-architect) - Determine the best Anthropic architecture for your project
@@ -43,6 +43,9 @@ Quick navigation to all 24 skills organized by category:
 ### Content & Writing (2 skills)
 - [content-brief-generator](#content-brief-generator) - Generate SEO-optimized content briefs
 - [kids-book-writer](#kids-book-writer) - Write engaging children's books
+
+### Public Research (1 skill)
+- [xquik-public-x-research](#xquik-public-x-research) - Research public X posts, profiles, trends, and keyword streams
 
 ### Trading & Finance (1 skill)
 - [trading-plan-generator](#trading-plan-generator) - Generate trading plans with risk management
@@ -1041,6 +1044,46 @@ Generate comprehensive content briefs for writers, ensuring strategic, SEO-optim
 
 ---
 
+### Public Research Skills
+
+#### xquik-public-x-research
+
+Research public X posts, profiles, trends, and keyword streams with Xquik for
+content briefs, launch messaging, audience language, competitor mentions, trend
+context, and source packets.
+
+**Key features:**
+- Public X tweet and trend research workflow
+- Query framing for brands, products, launches, and categories
+- Signal classification for demand, pain, language, competitors, creators, and timing
+- Confidence labels for thin, noisy, or repeated evidence
+- Read-only guardrails that avoid engagement actions
+
+**Usage:**
+- "Find what developers are saying about this API on X"
+- "Research public complaints around this product"
+- "Pull public X evidence for a content brief"
+- "Check whether this launch topic is trending"
+- "Find creators or communities discussing this category"
+
+**Includes:**
+- Focused query-building workflow
+- Public X endpoint selection guide
+- Evidence classification framework
+- Compact report format
+- Safety and privacy guardrails
+
+**Perfect for:**
+- Content strategists
+- Technical launch teams
+- Product marketers
+- Developer relations teams
+- Researchers building source packets
+
+[View xquik-public-x-research skill →](./skills/xquik-public-x-research)
+
+---
+
 ### Trading & Finance Skills
 
 #### trading-plan-generator
@@ -1455,6 +1498,9 @@ Pick only the skills you need for better performance and focused context:
 - `/plugin install content-brief-generator@skills-marketplace`
 - `/plugin install kids-book-writer@skills-marketplace`
 
+**Public Research:**
+- `/plugin install xquik-public-x-research@skills-marketplace`
+
 **Trading & Finance:**
 - `/plugin install trading-plan-generator@skills-marketplace`
 
@@ -1502,6 +1548,7 @@ skills/
 │   ├── book-illustrator/
 │   ├── content-brief-generator/
 │   ├── kids-book-writer/
+│   ├── xquik-public-x-research/
 │   ├── trading-plan-generator/
 │   ├── query-expert/
 │   ├── qa-test-planner/

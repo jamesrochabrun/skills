@@ -2,7 +2,7 @@
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "skills-marketplace",
   "version": "2.1.0",
-  "description": "A comprehensive collection of 23 custom skills for Claude Code covering engineering, iOS/Swift development, product management, design, content, trading, database, QA, educational, and AI prompt engineering domains. Install individual skills or the complete collection.",
+  "description": "A comprehensive collection of 24 custom skills for Claude Code covering engineering, iOS/Swift development, product management, design, content, public research, trading, database, QA, educational, and AI prompt engineering domains. Install individual skills or the complete collection.",
   "owner": {
     "name": "James Rochabrun",
     "email": "jamesrochabrun@gmail.com"
@@ -10,7 +10,7 @@
   "plugins": [
     {
       "name": "all-skills",
-      "description": "Complete collection of all 23 skills including engineering, iOS/Swift, product, design, content, finance, database, QA, educational, and AI prompt engineering skills",
+      "description": "Complete collection of all 24 skills including engineering, iOS/Swift, product, design, content, public research, finance, database, QA, educational, and AI prompt engineering skills",
       "source": "./",
       "strict": true,
       "skills": [
@@ -36,7 +36,8 @@
         "./skills/swift-concurrency",
         "./skills/swiftui-animation",
         "./skills/technical-launch-planner",
-        "./skills/trading-plan-generator"
+        "./skills/trading-plan-generator",
+        "./skills/xquik-public-x-research"
       ]
     },
     {
@@ -199,6 +200,13 @@
       "source": "./",
       "strict": true,
       "skills": ["./skills/trading-plan-generator"]
+    },
+    {
+      "name": "xquik-public-x-research",
+      "description": "Research public X posts, profiles, trends, and keyword streams with Xquik for content briefs, launch messaging, audience language, competitor mentions, trend context, and source packets.",
+      "source": "./",
+      "strict": true,
+      "skills": ["./skills/xquik-public-x-research"]
     }
   ]
 }

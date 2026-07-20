@@ -1,6 +1,6 @@
 # Skills Plugin & Marketplace
 
-A comprehensive plugin and marketplace for Claude Code containing 24 custom skills across engineering, Apple development, product management, design, content, trading, database, QA, educational, and AI architecture domains.
+A comprehensive plugin and marketplace for Claude Code containing 25 custom skills across engineering, Apple development, product management, design, content, trading, database, QA, educational, social tooling, and AI architecture domains.
 
 ## Overview
 
@@ -10,15 +10,16 @@ This repository provides Claude Code with specialized knowledge and workflows th
 
 ## Skills Index
 
-Quick navigation to all 24 skills organized by category:
+Quick navigation to all 25 skills organized by category:
 
 ### AI & Architecture (2 skills)
 - [anthropic-architect](#anthropic-architect) - Determine the best Anthropic architecture for your project
 - [anthropic-prompt-engineer](#anthropic-prompt-engineer) - Master Anthropic's prompt engineering techniques
 
-### Engineering (5 skills)
+### Engineering (6 skills)
 - [openai-prompt-engineer](#openai-prompt-engineer) - Generate and improve prompts using best practices for OpenAI GPT-5
 - [git-worktrees](#git-worktrees) - Manage Git worktrees for parallel development
+- [hermes-tweet](#hermes-tweet) - Configure Hermes Agent X/Twitter workflows
 - [llm-router](#llm-router) - Route requests to different LLM providers
 - [engineer-expertise-extractor](#engineer-expertise-extractor) - Extract engineering expertise from GitHub
 - [engineer-skill-creator](#engineer-skill-creator) - Transform expertise into actionable skills
@@ -325,6 +326,34 @@ Manage Git worktrees for parallel Claude Code development. Run multiple Claude C
 - Experimentation without breaking main work
 
 [View git-worktrees skill →](./skills/git-worktrees)
+
+---
+
+#### hermes-tweet
+
+Configure Hermes Tweet, the Hermes Agent plugin for X/Twitter research, reading, and guarded action workflows.
+
+**Key features:**
+- Install and enable Hermes Tweet in the Hermes Agent runtime
+- Configure `XQUIK_API_KEY` without exposing secrets
+- Use `tweet_explore` before read workflows
+- Use `tweet_read` for account, keyword, URL, or status ID reads
+- Gate `tweet_action` behind explicit approval and `HERMES_TWEET_ENABLE_ACTIONS=true`
+- Follow a public-safe publication and troubleshooting checklist
+
+**Usage:**
+- "Install Hermes Tweet for Hermes Agent"
+- "Configure XQUIK_API_KEY for tweet_read"
+- "Use tweet_explore before reading this X account"
+- "Enable tweet_action only after I approve the post"
+
+**Perfect for:**
+- Hermes Agent users adding X/Twitter capabilities
+- Safe social media automation setup
+- Public documentation for Hermes Tweet workflows
+- Troubleshooting plugin discovery and action gating
+
+[View hermes-tweet skill →](./skills/hermes-tweet)
 
 ---
 
@@ -1396,7 +1425,7 @@ You have two ways to use this skills collection:
 
 ### Option 1: Install ALL Skills (Bundle)
 
-Get all 23 skills at once with intelligent routing:
+Get all 25 skills at once with intelligent routing:
 
 ```bash
 /plugin marketplace add jamesrochabrun/skills
@@ -1437,6 +1466,7 @@ Pick only the skills you need for better performance and focused context:
 **Engineering:**
 - `/plugin install openai-prompt-engineer@skills-marketplace`
 - `/plugin install git-worktrees@skills-marketplace`
+- `/plugin install hermes-tweet@skills-marketplace`
 - `/plugin install llm-router@skills-marketplace`
 - `/plugin install engineer-expertise-extractor@skills-marketplace`
 - `/plugin install engineer-skill-creator@skills-marketplace`
@@ -1482,12 +1512,13 @@ The plugin follows the standard Claude Code plugin architecture:
 skills/
 ├── .claude-plugin/
 │   ├── plugin.json          # Plugin metadata
-│   └── marketplace.json     # Marketplace configuration (25 plugins: 1 bundle + 24 individual)
-├── skills/                   # All skills collection (24 total)
+│   └── marketplace.json     # Marketplace configuration (26 plugins: 1 bundle + 25 individual)
+├── skills/                   # All skills collection (25 total)
 │   ├── anthropic-architect/
 │   ├── anthropic-prompt-engineer/
 │   ├── openai-prompt-engineer/
 │   ├── git-worktrees/
+│   ├── hermes-tweet/
 │   ├── llm-router/
 │   ├── engineer-expertise-extractor/
 │   ├── engineer-skill-creator/
@@ -1515,9 +1546,9 @@ skills/
 ### How It Works
 
 **Marketplace Configuration:**
-- The `marketplace.json` exposes 25 installable options
-- 1 "all-skills" bundle with `strict: false` (intelligent routing across all 24 skills)
-- 24 individual skills with `strict: true` (explicit activation when installed)
+- The `marketplace.json` exposes 26 installable options
+- 1 "all-skills" bundle with `strict: true` (validated paths for all 25 skills)
+- 25 individual skills with `strict: true` (explicit activation when installed)
 
 **Installation Flexibility:**
 - Install the bundle for comprehensive coverage with smart skill selection
@@ -1542,8 +1573,8 @@ MIT License - See individual skills for their specific licenses.
 This marketplace provides flexible installation options:
 
 ### Bundle Installation (all-skills)
-- **What:** All 23 skills in one package
-- **Behavior:** `strict: false` enables intelligent skill routing
+- **What:** All 25 skills in one package
+- **Behavior:** `strict: true` validates every declared skill path
 - **Best for:** Users who work across multiple domains and want comprehensive coverage
 - **Trade-off:** Larger context window, but Claude automatically selects relevant skills
 
@@ -1556,9 +1587,9 @@ This marketplace provides flexible installation options:
 ### Technical Details
 
 **marketplace.json structure:**
-- 24 total plugin entries
-- 1 "all-skills" bundle pointing to root with all 23 skills
-- 23 individual plugins, each pointing to a single skill
+- 26 total plugin entries
+- 1 "all-skills" bundle pointing to root with all 25 skills
+- 25 individual plugins, each pointing to a single skill
 - All use same repository source (`./`) with different skill paths
 
 **Why this works:**

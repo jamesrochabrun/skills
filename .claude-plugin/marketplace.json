@@ -1,8 +1,10 @@
 {
-  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "skills-marketplace",
-  "version": "2.1.0",
-  "description": "A comprehensive collection of 23 custom skills for Claude Code covering engineering, iOS/Swift development, product management, design, content, trading, database, QA, educational, and AI prompt engineering domains. Install individual skills or the complete collection.",
+  "metadata": {
+    "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+    "version": "2.2.0",
+    "description": "A comprehensive collection of 25 custom skills for Claude Code covering engineering, iOS/Swift development, product management, design, content, trading, database, QA, educational, social tooling, and AI prompt engineering domains. Install individual skills or the complete collection."
+  },
   "owner": {
     "name": "James Rochabrun",
     "email": "jamesrochabrun@gmail.com"
@@ -10,7 +12,7 @@
   "plugins": [
     {
       "name": "all-skills",
-      "description": "Complete collection of all 23 skills including engineering, iOS/Swift, product, design, content, finance, database, QA, educational, and AI prompt engineering skills",
+      "description": "Complete collection of all 25 skills including engineering, iOS/Swift, product, design, content, finance, database, QA, educational, social tooling, and AI prompt engineering skills",
       "source": "./",
       "strict": true,
       "skills": [
@@ -24,6 +26,7 @@
         "./skills/engineer-skill-creator",
         "./skills/frontend-designer",
         "./skills/git-worktrees",
+        "./skills/hermes-tweet",
         "./skills/kids-book-writer",
         "./skills/leetcode-teacher",
         "./skills/llm-router",
@@ -33,6 +36,7 @@
         "./skills/qa-test-planner",
         "./skills/query-expert",
         "./skills/reading-teacher",
+        "./skills/releasing-macos-apps",
         "./skills/swift-concurrency",
         "./skills/swiftui-animation",
         "./skills/technical-launch-planner",
@@ -110,6 +114,13 @@
       "skills": ["./skills/git-worktrees"]
     },
     {
+      "name": "hermes-tweet",
+      "description": "Configure and operate Hermes Tweet, the Hermes Agent X/Twitter plugin, including XQUIK_API_KEY setup, tweet_explore, tweet_read, and guarded tweet_action workflows.",
+      "source": "./",
+      "strict": true,
+      "skills": ["./skills/hermes-tweet"]
+    },
+    {
       "name": "kids-book-writer",
       "description": "Expert children's book writer creating delightful, engaging books for ages 2-9. Specializes in rhyming books, stories, songs with proper values, educational content, and age-appropriate language. Crafts books that captivate young readers while teaching important life lessons.",
       "source": "./",
@@ -171,6 +182,13 @@
       "source": "./",
       "strict": true,
       "skills": ["./skills/reading-teacher"]
+    },
+    {
+      "name": "releasing-macos-apps",
+      "description": "Create notarized macOS releases with Sparkle updates, App Store Connect API key authentication, and release troubleshooting guidance.",
+      "source": "./",
+      "strict": true,
+      "skills": ["./skills/releasing-macos-apps"]
     },
     {
       "name": "swift-concurrency",
